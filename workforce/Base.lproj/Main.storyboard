@@ -328,11 +328,27 @@
                                 <rect key="frame" x="16" y="139" width="344" height="124"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hcB-Uw-F1y">
+                                <rect key="frame" x="0.0" y="598" width="375" height="10"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="BorderHome" destination="hcB-Uw-F1y" id="HtL-9d-oGT"/>
+                        <outlet property="CalendarButton" destination="u4D-72-Ntu" id="beO-cy-WMu"/>
+                        <outlet property="CalendarImageButton" destination="qWO-4Y-mAV" id="JPw-Ab-FPh"/>
+                        <outlet property="CalendarLabel" destination="z25-1r-8dT" id="j29-QL-cyJ"/>
+                        <outlet property="ContainerButtons" destination="HZl-Xo-hYv" id="yCs-Pw-hrr"/>
                         <outlet property="DateContainer" destination="sq7-Xc-f27" id="myz-eD-rXM"/>
+                        <outlet property="HomeButton" destination="sQY-7d-HMe" id="ArB-VB-l1K"/>
+                        <outlet property="HomeImageButton" destination="D47-AV-9AL" id="i34-zE-vZh"/>
+                        <outlet property="HomeLabel" destination="HRO-KS-J70" id="8jo-BI-Y4P"/>
+                        <outlet property="ProfileButton" destination="bvS-hB-lqD" id="rqz-b0-8MU"/>
+                        <outlet property="ProfileImageButton" destination="Q6R-jr-Unz" id="pr3-JT-q3e"/>
+                        <outlet property="ProfileLabel" destination="mJL-F9-JOY" id="6nl-Sr-75H"/>
                         <outlet property="ServertimeContainer" destination="YtS-K2-R0K" id="wo4-sc-rmY"/>
                         <outlet property="containerNav" destination="Aks-Z9-BHW" id="kX5-jT-uH3"/>
                         <outlet property="imageBackground" destination="ocu-Dr-ZG0" id="oLn-F6-2hV"/>
