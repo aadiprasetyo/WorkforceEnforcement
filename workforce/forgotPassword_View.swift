@@ -83,6 +83,15 @@ extension forgotPassViewController{
         loginButton.setTitle("Send Email", for: .normal)
         loginButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         
+        back.translatesAutoresizingMaskIntoConstraints = false
+        back.leftAnchor.constraint(equalTo: emailTextField.leftAnchor).isActive = true
+        back.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor, multiplier: 1/3.5).isActive = true
+        back.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 25).isActive = true
+        back.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/20)
+        back.centerYAnchor.constraint(equalTo: loginButton.centerYAnchor).isActive = true
+        back.setTitle("Back", for: .normal)
+        back.titleLabel?.font = UIFont.boldSystemFont(ofSize: 10)
+        
     }
 
 }

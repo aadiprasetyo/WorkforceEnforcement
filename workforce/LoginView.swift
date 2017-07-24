@@ -41,7 +41,6 @@ extension LoginViewController{
         //headerContainer.roundCorners([.topLeft, .topRight], radius: 10)
         headerContainer.layer.cornerRadius = 10
         headerContainer.addSubview(logoWE)
-        headerContainer.addSubview(labelTitle)
         
         logoWE.translatesAutoresizingMaskIntoConstraints = false
         logoWE.bottomAnchor.constraint(equalTo: headerContainer.bottomAnchor).isActive = true

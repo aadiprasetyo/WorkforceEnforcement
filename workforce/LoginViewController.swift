@@ -27,6 +27,8 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupInputsContainerView()
+        
+
         loginButton.layer.shadowOpacity = 0.3
         // Do any additional setup after loading the view.
     }

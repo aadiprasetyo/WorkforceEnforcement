@@ -10,6 +10,7 @@ import UIKit
 
 class forgotPassViewController: UIViewController {
     
+    @IBOutlet weak var back: UIButton!
     @IBOutlet weak var inputsContainerView: UIView!
     
     @IBOutlet weak var labelTitle: UILabel!

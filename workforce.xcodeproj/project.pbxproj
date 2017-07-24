@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8418747B1F21F25400C7920F /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8418747A1F21F25400C7920F /* ProfileViewController.swift */; };
+		84E74A9E1F259F8E0087FA46 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E74A9D1F259F8E0087FA46 /* HomeView.swift */; };
 		84F67A841F1F5F9F001CC414 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F67A831F1F5F9F001CC414 /* AppDelegate.swift */; };
 		84F67A861F1F5F9F001CC414 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F67A851F1F5F9F001CC414 /* ViewController.swift */; };
 		84F67A891F1F5F9F001CC414 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84F67A871F1F5F9F001CC414 /* Main.storyboard */; };
@@ -22,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		8418747A1F21F25400C7920F /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		84E74A9D1F259F8E0087FA46 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		84F67A801F1F5F9F001CC414 /* workforce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = workforce.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84F67A831F1F5F9F001CC414 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84F67A851F1F5F9F001CC414 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -70,8 +72,8 @@
 				84F67A991F2073BB001CC414 /* Controllers */,
 				84F67A831F1F5F9F001CC414 /* AppDelegate.swift */,
 				84F67A871F1F5F9F001CC414 /* Main.storyboard */,
-				84F67A8A1F1F5F9F001CC414 /* Assets.xcassets */,
 				84F67A8C1F1F5FA0001CC414 /* LaunchScreen.storyboard */,
+				84F67A8A1F1F5F9F001CC414 /* Assets.xcassets */,
 				84F67A8F1F1F5FA0001CC414 /* Info.plist */,
 			);
 			path = workforce;
@@ -94,6 +96,7 @@
 			children = (
 				84F67A9B1F2073F8001CC414 /* forgotPassword_View.swift */,
 				84F67A9D1F20740E001CC414 /* LoginView.swift */,
+				84E74A9D1F259F8E0087FA46 /* HomeView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -171,6 +174,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84E74A9E1F259F8E0087FA46 /* HomeView.swift in Sources */,
 				84F67A9E1F20740E001CC414 /* LoginView.swift in Sources */,
 				84F67A9C1F2073F8001CC414 /* forgotPassword_View.swift in Sources */,
 				84F67A981F20693F001CC414 /* forgotPassViewController.swift in Sources */,

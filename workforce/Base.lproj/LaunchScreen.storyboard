@@ -1,7 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -16,7 +21,29 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pattern1" translatesAutoresizingMaskIntoConstraints="NO" id="Cbe-87-MNS">
+                                <rect key="frame" x="0.0" y="20" width="375" height="667"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoCirc" translatesAutoresizingMaskIntoConstraints="NO" id="riY-rn-slp">
+                                <rect key="frame" x="75" y="241" width="225" height="225"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="riY-rn-slp" secondAttribute="height" multiplier="1:1" id="QFg-HO-xC8"/>
+                                    <constraint firstAttribute="width" constant="225" id="U0g-Cn-GSe"/>
+                                    <constraint firstAttribute="height" constant="225" id="aD8-ur-wcd"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="riY-rn-slp" firstAttribute="centerY" secondItem="Cbe-87-MNS" secondAttribute="centerY" id="1IO-XS-2e6"/>
+                            <constraint firstItem="Cbe-87-MNS" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" constant="20" id="FpX-4P-PGT"/>
+                            <constraint firstItem="Cbe-87-MNS" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Mx0-w8-85h"/>
+                            <constraint firstItem="Cbe-87-MNS" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="O0H-TA-pUX"/>
+                            <constraint firstItem="Cbe-87-MNS" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" id="Uxk-1E-AVt"/>
+                            <constraint firstItem="Cbe-87-MNS" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" id="Vim-ww-Lh1"/>
+                            <constraint firstItem="riY-rn-slp" firstAttribute="centerX" secondItem="Cbe-87-MNS" secondAttribute="centerX" id="nET-ih-0S1"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -24,4 +51,8 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="logoCirc" width="225" height="225"/>
+        <image name="pattern1" width="375" height="646"/>
+    </resources>
 </document>
