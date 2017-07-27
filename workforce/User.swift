@@ -44,3 +44,19 @@ class User: Mappable {
     }
     
 }
+
+class forgotPass: Mappable{
+    var status: String?
+    var message: String?
+    
+    
+    required init?(map: Map) {
+        
+        
+    }
+    // Mappable
+    func mapping(map: Map) {
+        status  <- map["Status"]
+        message <- map["Message"]
+    }
+}

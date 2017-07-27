@@ -43,14 +43,6 @@ class LoginViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    func createAlert(titleText: String, messageText: String){
-        let alert = UIAlertController(title: titleText, message: messageText, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
-            alert.dismiss(animated: true, completion: nil)
-        })
-        )
-        self.present(alert, animated: true, completion:  nil)
-    }
     func handleLogin(){
         guard let parameters: Parameters = [
             "Email": emailTextField.text!,

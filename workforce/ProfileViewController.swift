@@ -57,7 +57,6 @@ class ProfileViewController: UIViewController {
     }
     
     func setProfile(){
-        print(userData?.email)
         profileJob.text = userData?.role_name
         profileName.text = (userData?.first_name)! + (userData?.last_name)!
     }
