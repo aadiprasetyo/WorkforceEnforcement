@@ -18,7 +18,8 @@ class ProfileEditViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var profileName: UILabel!
-    
+    var profile = [userData?.first_name, userData?.email, userData?.role_name]
+    var profileDetail = ["Name", "Email", "Job"]
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -26,15 +27,18 @@ class ProfileEditViewController: UIViewController, UITableViewDelegate, UITableV
         navigationItem.title = "View Profile"
         profileTable.register(ProfileCell.self, forCellReuseIdentifier: "cell")
         setupView()
+        profileTable.delegate = self
+        profileTable.dataSource = self
         
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return profile.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCellStyle.default , reuseIdentifier: "cell")
-        cell.textLabel?.text = "haha"
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ProfileCell
+        cell.detailLabel.text = profileDetail[indexPath.row]
+        cell.textLabel?.text = profile[indexPath.row]
         return cell
     }
     override func viewWillAppear(_ animated: Bool) {

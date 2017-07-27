@@ -15,7 +15,7 @@ class User: Mappable {
     var userId: String?
     var employee_id: String?
     var status: String?
-    var passMessage: [String: AnyObject]?
+    var passMessage: String?
     var emailMessage: String?
     var first_name: String?
     var last_name: String?
@@ -32,8 +32,8 @@ class User: Mappable {
     // Mappable
     func mapping(map: Map) {
         status          <- map["Status"]
-        passMessage     <- map["Message.Password"]
-        emailMessage    <- map["Message.Email"]
+        passMessage     <- map["Message.Password.0"]
+        emailMessage    <- map["Message.Email.0"]
         token           <- map["UserData.Token"]
         userId          <- map["UserData.UserID"]
         employee_id     <- map["UserData.Data.employee_id"]

@@ -32,7 +32,6 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupInputsContainerView()
-        
         navigationItem.title = "Sign In"
         
         loginButton.layer.shadowOpacity = 0.3
@@ -44,7 +43,14 @@ class LoginViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    func createAlert(titleText: String, messageText: String){
+        let alert = UIAlertController(title: titleText, message: messageText, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
+        })
+        )
+        self.present(alert, animated: true, completion:  nil)
+    }
     func handleLogin(){
         guard let parameters: Parameters = [
             "Email": emailTextField.text!,
@@ -63,15 +69,23 @@ class LoginViewController: UIViewController {
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "tabBarId")
                 self.show(vc!, sender: nil)
             }else{
-                print(user?.status)
-                print(user?.passMessage)
-                print(user?.emailMessage)
-                
+                self.handleLoginError(user: user)
             }
         }
-        
-        
     }
+    
+    func handleLoginError(user: User?){
+        if user?.passMessage != nil && user?.emailMessage != nil{
+            self.createAlert(titleText: "Login Failure", messageText: (user?.status)! + "\n" + (user?.emailMessage)! + "\n" + (user?.passMessage)!)
+        }else if user?.emailMessage != nil {
+            self.createAlert(titleText: "Login Failure", messageText: (user?.status)! + "\n" + (user?.emailMessage)!)
+        }else if user?.passMessage != nil{
+            self.createAlert(titleText: "Login Failure", messageText: (user?.status)! + "\n" + (user?.passMessage)!)
+        }else{
+            self.createAlert(titleText: "Login Failure", messageText: (user?.status)!)
+        }
+    }
+    
     func setupInputsContainerView(){
         
         background.translatesAutoresizingMaskIntoConstraints = false
@@ -134,7 +148,6 @@ class LoginViewController: UIViewController {
         passwordTextField.centerXAnchor.constraint(equalTo: inputsContainerView.centerXAnchor).isActive = true
         passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 26).isActive = true
         passwordTextField.isSecureTextEntry = true
-        
         
         passwordSeparator.translatesAutoresizingMaskIntoConstraints = false
         
