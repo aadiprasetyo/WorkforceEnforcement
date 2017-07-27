@@ -14,7 +14,7 @@ extension forgotPassViewController{
         background.translatesAutoresizingMaskIntoConstraints = false
         background.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         background.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
-        background.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
+        background.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         
         inputsContainerView.backgroundColor = UIColor.white
         inputsContainerView.layer.borderWidth = 1
@@ -40,8 +40,6 @@ extension forgotPassViewController{
         headerContainer.layer.masksToBounds = true
         //headerContainer.roundCorners([.topLeft, .topRight], radius: 10)
         headerContainer.layer.cornerRadius = 10
-        headerContainer.addSubview(logoWE)
-        headerContainer.addSubview(labelTitle)
         
         logoWE.translatesAutoresizingMaskIntoConstraints = false
         logoWE.bottomAnchor.constraint(equalTo: headerContainer.bottomAnchor).isActive = true
@@ -82,15 +80,7 @@ extension forgotPassViewController{
         
         loginButton.setTitle("Send Email", for: .normal)
         loginButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
-        
-        back.translatesAutoresizingMaskIntoConstraints = false
-        back.leftAnchor.constraint(equalTo: emailTextField.leftAnchor).isActive = true
-        back.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor, multiplier: 1/3.5).isActive = true
-        back.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 25).isActive = true
-        back.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/20)
-        back.centerYAnchor.constraint(equalTo: loginButton.centerYAnchor).isActive = true
-        back.setTitle("Back", for: .normal)
-        back.titleLabel?.font = UIFont.boldSystemFont(ofSize: 10)
+        loginButton.layer.shadowOpacity = 0.3
         
     }
 

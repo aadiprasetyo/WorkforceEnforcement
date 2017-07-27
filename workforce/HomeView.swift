@@ -13,20 +13,11 @@ extension HomeViewController {
     
     func setupView(){
         
-        containerNav.translatesAutoresizingMaskIntoConstraints = false
-        containerNav.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        containerNav.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        containerNav.heightAnchor.constraint(equalToConstant: 64).isActive = true
-        
-        labelTitle.translatesAutoresizingMaskIntoConstraints = false
-        labelTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        labelTitle.bottomAnchor.constraint(equalTo: containerNav.bottomAnchor, constant: -14).isActive = true
-        labelTitle.font = UIFont.boldSystemFont(ofSize: 12)
         
         DateContainer.translatesAutoresizingMaskIntoConstraints = false
         DateContainer.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/1.7).isActive = true
         DateContainer.heightAnchor.constraint(equalToConstant: 53).isActive = true
-        DateContainer.topAnchor.constraint(equalTo: containerNav.bottomAnchor, constant: 8).isActive = true
+        DateContainer.topAnchor.constraint(equalTo: view.topAnchor, constant: 8).isActive = true
         DateContainer.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16.5).isActive = true
         DateContainer.backgroundColor = UIColor.white
         DateContainer.layer.borderWidth = 1
@@ -53,7 +44,7 @@ extension HomeViewController {
         ServertimeContainer.translatesAutoresizingMaskIntoConstraints = false
         ServertimeContainer.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3.2).isActive = true
         ServertimeContainer.heightAnchor.constraint(equalToConstant: 53).isActive = true
-        ServertimeContainer.topAnchor.constraint(equalTo: containerNav.bottomAnchor, constant: 8).isActive = true
+        ServertimeContainer.topAnchor.constraint(equalTo: view.topAnchor, constant: 8).isActive = true
         ServertimeContainer.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -13.5).isActive = true
         ServertimeContainer.backgroundColor = UIColor.white
         ServertimeContainer.layer.borderWidth = 1
@@ -69,13 +60,9 @@ extension HomeViewController {
         imageBackground.translatesAutoresizingMaskIntoConstraints = false
         imageBackground.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         imageBackground.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
-        imageBackground.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
+        imageBackground.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         
-        BorderHome.translatesAutoresizingMaskIntoConstraints = false
-        BorderHome.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        BorderHome.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        BorderHome.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -49).isActive = true
-        BorderHome.backgroundColor = UIColor.gray
+        
         
         
         

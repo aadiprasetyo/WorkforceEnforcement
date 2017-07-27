@@ -16,6 +16,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        print(UserDefaults.standard.object(forKey: "userData"))
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        var initialViewController = storyboard.instantiateViewController(withIdentifier: "tabBarFirst")
+        if UserDefaults.standard.object(forKey: "userData") != nil{
+            initialViewController = storyboard.instantiateViewController(withIdentifier: "tabBarLog")
+        }
+        else{
+            initialViewController = storyboard.instantiateViewController(withIdentifier: "tabBarFirst")
+        }
+        
+        self.window?.rootViewController = initialViewController
+        self.window?.makeKeyAndVisible()
         return true
     }
 
@@ -40,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
+    
 
 }
 

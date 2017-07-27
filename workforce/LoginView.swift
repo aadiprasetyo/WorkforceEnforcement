@@ -19,18 +19,13 @@ extension LoginViewController{
         inputsContainerView.layer.borderWidth = 1
         inputsContainerView.layer.borderColor = UIColor.lightGray.cgColor
         inputsContainerView.translatesAutoresizingMaskIntoConstraints = false
-        //container input view setup
+        
+        
         inputsContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         inputsContainerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         inputsContainerView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -44).isActive = true
         inputsContainerView.heightAnchor.constraint(equalToConstant: 240).isActive = true
         inputsContainerView.layer.cornerRadius = 10
-        inputsContainerView.addSubview(emailTextField)
-        inputsContainerView.addSubview(passwordTextField)
-        inputsContainerView.addSubview(headerContainer)
-        inputsContainerView.addSubview(loginButton)
-        inputsContainerView.addSubview(emailSeparator)
-        inputsContainerView.addSubview(passwordSeparator)
         
         headerContainer.translatesAutoresizingMaskIntoConstraints = false
         headerContainer.topAnchor.constraint(equalTo: inputsContainerView.topAnchor).isActive = true
@@ -38,7 +33,7 @@ extension LoginViewController{
         headerContainer.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
         headerContainer.heightAnchor.constraint(equalToConstant: 60).isActive = true
         headerContainer.layer.masksToBounds = true
-        //headerContainer.roundCorners([.topLeft, .topRight], radius: 10)
+        
         headerContainer.layer.cornerRadius = 10
         headerContainer.addSubview(logoWE)
         

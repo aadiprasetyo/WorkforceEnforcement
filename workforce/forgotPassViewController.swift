@@ -10,7 +10,6 @@ import UIKit
 
 class forgotPassViewController: UIViewController {
     
-    @IBOutlet weak var back: UIButton!
     @IBOutlet weak var inputsContainerView: UIView!
     
     @IBOutlet weak var labelTitle: UILabel!
@@ -25,7 +24,7 @@ class forgotPassViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupInputsContainerView()
-        loginButton.layer.shadowOpacity = 0.3
+        navigationItem.title = "Forgot Password"
         // Do any additional setup after loading the view.
     }
     
@@ -36,10 +35,4 @@ class forgotPassViewController: UIViewController {
     
     
 }
-extension UIView {
-    func roundCorners(_ corners: UIRectCorner, radius: CGFloat) {
-        let maskLayer = CAShapeLayer()
-        maskLayer.path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius)).cgPath
-        self.layer.mask = maskLayer
-    }
-}
+
