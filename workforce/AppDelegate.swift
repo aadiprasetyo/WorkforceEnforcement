@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import ObjectMapper
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -16,10 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        print(UserDefaults.standard.object(forKey: "userData"))
+        
+        
+        let userData = Mapper<User>().map(JSONString: UserDefaults.standard.object(forKey: "userData") as! String)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         var initialViewController = storyboard.instantiateViewController(withIdentifier: "tabBarFirst")
-        if UserDefaults.standard.object(forKey: "userData") != nil{
+        if userData?.token != nil{
             initialViewController = storyboard.instantiateViewController(withIdentifier: "tabBarLog")
         }
         else{

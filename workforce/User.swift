@@ -26,6 +26,7 @@ class User: Mappable {
     
     required init?(map: Map) {
         
+        
     }
     
     // Mappable
@@ -40,8 +41,6 @@ class User: Mappable {
         last_name       <- map["UserData.Data.last_name"]
         email           <- map["UserData.Data.email"]
         role_name       <- map["UserData.Data.role_name"]
-        
-        
-        
     }
+    
 }

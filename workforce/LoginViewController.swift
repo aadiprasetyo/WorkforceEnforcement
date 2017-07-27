@@ -55,10 +55,10 @@ class LoginViewController: UIViewController {
         }
         Alamofire.request("http://staging.api.workforce.id/api/v1/user/login", method: .post, parameters: parameters).responseObject{ (response : DataResponse<User>) in
             let user = response.result.value
+            let JSONString = user?.toJSONString(prettyPrint: true)
             let statusCode = response.response?.statusCode
             if statusCode == 200 {
-                
-                UserDefaults.standard.set(user?.token, forKey: "userData")
+                UserDefaults.standard.set(JSONString, forKey: "userData")
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "tabBarId")
                 self.show(vc!, sender: nil)
             }else{

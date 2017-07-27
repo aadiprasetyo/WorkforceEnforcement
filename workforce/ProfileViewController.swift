@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ObjectMapper
 
 class ProfileViewController: UIViewController {
 
@@ -39,7 +40,10 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        let userData = Mapper<User>().map(JSONString: UserDefaults.standard.object(forKey: "userData") as! String)
         tabBarController?.navigationItem.title = "Profile"
+        profileJob.text = userData?.role_name
+        profileName.text = (userData?.first_name)! + (userData?.last_name)!
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
