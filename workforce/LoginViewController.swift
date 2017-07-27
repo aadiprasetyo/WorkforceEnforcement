@@ -59,10 +59,13 @@ class LoginViewController: UIViewController {
             let statusCode = response.response?.statusCode
             if statusCode == 200 {
                 UserDefaults.standard.set(JSONString, forKey: "userData")
+                UserDefaults.standard.synchronize()
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "tabBarId")
                 self.show(vc!, sender: nil)
             }else{
                 print(user?.status)
+                print(user?.passMessage)
+                print(user?.emailMessage)
                 
             }
         }

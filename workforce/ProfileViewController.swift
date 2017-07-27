@@ -29,7 +29,7 @@ class ProfileViewController: UIViewController {
     
     
     @IBAction func logout_Tap(_ sender: Any) {
-        UserDefaults.standard.removeObject(forKey: "userToken")
+        UserDefaults.standard.removeObject(forKey: "userData")
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "loginViewController")
         self.show(vc!, sender: nil)
     }
@@ -40,10 +40,8 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        let userData = Mapper<User>().map(JSONString: UserDefaults.standard.object(forKey: "userData") as! String)
         tabBarController?.navigationItem.title = "Profile"
-        profileJob.text = userData?.role_name
-        profileName.text = (userData?.first_name)! + (userData?.last_name)!
+        setProfile()
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -58,6 +56,10 @@ class ProfileViewController: UIViewController {
         return .lightContent
     }
     
-
+    func setProfile(){
+        print(userData?.email)
+        profileJob.text = userData?.role_name
+        profileName.text = (userData?.first_name)! + (userData?.last_name)!
+    }
 }
 

@@ -17,16 +17,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        
-        let userData = Mapper<User>().map(JSONString: UserDefaults.standard.object(forKey: "userData") as! String)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         var initialViewController = storyboard.instantiateViewController(withIdentifier: "tabBarFirst")
-        if userData?.token != nil{
-            initialViewController = storyboard.instantiateViewController(withIdentifier: "tabBarLog")
+        
+        if UserDefaults.standard.object(forKey: "userData") != nil{
+            let userData = Mapper<User>().map(JSONString: UserDefaults.standard.object(forKey: "userData") as! String)
+            if userData?.token != nil{
+                initialViewController = storyboard.instantiateViewController(withIdentifier: "tabBarLog")
+            }
+            else{
+                initialViewController = storyboard.instantiateViewController(withIdentifier: "tabBarFirst")
+            }
+
         }
-        else{
-            initialViewController = storyboard.instantiateViewController(withIdentifier: "tabBarFirst")
-        }
+        
         
         self.window?.rootViewController = initialViewController
         self.window?.makeKeyAndVisible()
@@ -34,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
+        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message)or  when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
     }
 

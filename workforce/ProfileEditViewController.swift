@@ -37,6 +37,10 @@ class ProfileEditViewController: UIViewController, UITableViewDelegate, UITableV
         cell.textLabel?.text = "haha"
         return cell
     }
+    override func viewWillAppear(_ animated: Bool) {
+        profileJob.text = userData?.role_name
+        profileName.text = (userData?.first_name)! + (userData?.last_name)!
+    }
     override func viewWillDisappear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
     }

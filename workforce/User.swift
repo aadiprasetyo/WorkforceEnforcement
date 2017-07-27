@@ -15,7 +15,7 @@ class User: Mappable {
     var userId: String?
     var employee_id: String?
     var status: String?
-    var passMessage: String?
+    var passMessage: [String: AnyObject]?
     var emailMessage: String?
     var first_name: String?
     var last_name: String?

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ObjectMapper
 
 class HomeViewController: UIViewController {
 
@@ -24,7 +25,7 @@ class HomeViewController: UIViewController {
         setupView()
         
         tabBarController?.navigationItem.title = "Home"
-        
+        userData = Mapper<User>().map(JSONString: UserDefaults.standard.object(forKey: "userData") as! String)
         
         // Do any additional setup after loading the view.
     }
