@@ -16,11 +16,92 @@ class attendanceCollectionViewCell: UICollectionViewCell {
     var ImageView: UIImageView!
     var button: UIButton!
     var delegate: attendanceCollectionViewCellDelegate? = nil
+    let statusCheckIn:UILabel = {
+        let status = UILabel()
+        status.translatesAutoresizingMaskIntoConstraints = false
+        return status
+    }()
+    
+    let statusCheckOut:UILabel = {
+        let status = UILabel()
+        status.translatesAutoresizingMaskIntoConstraints = false
+        return status
+    }()
+    
+    let checkInTime: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let checkOutTime: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let workHours: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     
     override func awakeFromNib() {
+        
+        
+        
         ImageView = UIImageView(frame: contentView.frame)
         ImageView.contentMode = .scaleAspectFit
         contentView.addSubview(ImageView)
+        contentView.addSubview(statusCheckIn)
+        contentView.addSubview(statusCheckOut)
+        contentView.addSubview(checkInTime)
+        contentView.addSubview(checkOutTime)
+        contentView.addSubview(workHours)
+        
+        statusCheckIn.text = "LUL"
+        statusCheckIn.font = UIFont.systemFont(ofSize: 12)
+        statusCheckIn.textAlignment = .center
+        statusCheckIn.backgroundColor = UIColor.green
+        statusCheckIn.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 56.5).isActive = true
+        statusCheckIn.widthAnchor.constraint(equalToConstant: 97.5).isActive = true
+        statusCheckIn.heightAnchor.constraint(equalToConstant: 22.5).isActive = true
+        statusCheckIn.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8.3).isActive = true
+        
+        checkInTime.text = "haHAA"
+        checkInTime.textColor = UIColor.gray
+        checkInTime.font = UIFont.systemFont(ofSize: 12)
+        checkInTime.bottomAnchor.constraint(equalTo: statusCheckIn.topAnchor, constant: -6.5).isActive = true
+        checkInTime.widthAnchor.constraint(equalToConstant: 97.5).isActive = true
+        checkInTime.heightAnchor.constraint(equalToConstant: 12).isActive = true
+        checkInTime.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8.3).isActive = true
+        
+        statusCheckOut.text = "XD"
+        statusCheckOut.textAlignment = .center
+        statusCheckOut.backgroundColor = UIColor.red
+        statusCheckOut.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 56.5).isActive = true
+        statusCheckOut.widthAnchor.constraint(equalToConstant: 97.5).isActive = true
+        statusCheckOut.heightAnchor.constraint(equalToConstant: 22.5).isActive = true
+        statusCheckOut.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -7.8).isActive = true
+        
+        checkOutTime.text = "haHAA"
+        checkOutTime.textColor = UIColor.gray
+        checkOutTime.font = UIFont.systemFont(ofSize: 12)
+        checkOutTime.bottomAnchor.constraint(equalTo: statusCheckIn.topAnchor, constant: -6.5).isActive = true
+        checkOutTime.widthAnchor.constraint(equalToConstant: 97.5).isActive = true
+        checkOutTime.heightAnchor.constraint(equalToConstant: 12).isActive = true
+        checkOutTime.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -7.8).isActive = true
+        
+        workHours.text = "WORK HOURS"
+        workHours.textColor = UIColor.green
+        workHours.textAlignment = .center
+        workHours.font = UIFont.systemFont(ofSize: 12)
+        workHours.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -19).isActive = true
+        workHours.widthAnchor.constraint(equalToConstant: 97.5).isActive = true
+        workHours.heightAnchor.constraint(equalToConstant: 12).isActive = true
+        workHours.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        
     }
     
 }

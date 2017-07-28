@@ -60,3 +60,43 @@ class forgotPass: Mappable{
         message <- map["Message"]
     }
 }
+
+class attendeList: Mappable{
+    var TotalData: Int?
+    var TotalPage: Int?
+    var attendeDataList: [attendeData]?
+    
+    
+    required init?(map: Map) {
+        
+        
+    }
+    // Mappable
+    func mapping(map: Map) {
+        TotalData       <- map["TotalData"]
+        TotalPage       <- map["TotalPage"]
+        attendeDataList <- map["Data"]
+    }
+}
+
+class attendeData: Mappable {
+    var attendanceid: String?
+    var checkin: String?
+    var checkout: String?
+    var status_late: String?
+    var status_working: String?
+    var hours_different: String?
+    
+    required init?(map: Map){
+        
+    }
+    
+    func mapping(map: Map) {
+        attendanceid    <- map["attendanceid"]
+        checkin         <- map["checkin"]
+        checkout        <- map["checkout"]
+        status_late     <- map["status_late"]
+        status_working  <- map["status_working"]
+        hours_different <- map["hours_different"]
+    }
+}

@@ -31,18 +31,27 @@ class HomeViewController: UIViewController{
         view.addSubview(collectionViews)
         collectionViews.translatesAutoresizingMaskIntoConstraints = false
         
+        
+        
         collectionViews.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
         collectionViews.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/1.09).isActive = true
         collectionViews.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         collectionViews.topAnchor.constraint(equalTo: DateContainer.bottomAnchor).isActive = true
-        addMoreImages()
-        addMoreImages()
-        addMoreImages()
-        addMoreImages()
-        addMoreImages()
-        addMoreImages()
-        addMoreImages()
-        addMoreImages()
+        APIManager.sharedAPI.attendanceReport(token: (userData?.token)!, year: "2016", month: "07"){
+            Data in
+            if let attendeDataList = Data.attendeDataList {
+                for attendeData in attendeDataList {
+                    print(attendeData.attendanceid)
+                    print(attendeData.checkin)
+                    print(attendeData.checkout)
+                    print(attendeData.status_late)
+                    print(attendeData.status_working)
+                    print(attendeData.hours_different)
+                    self.addMoreImages()
+                }
+            }
+        }
+        
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {

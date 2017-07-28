@@ -73,6 +73,30 @@ class APIManager{
         }
     }
     
+    func attendanceReport(token: String, year: String, month: String, completeonClosure: @escaping (attendeList) -> Void){
+        
+        let parameters: Parameters = [
+            "token": token,
+            "Page": 1,
+            "PageLimit": 30,
+            "Search[0][field]": "date",
+            "Search[0][condition]": "between",
+            "Search[0][value1]": year + "-" + month + "-01",
+            "Search[0][value2]": year + "-" + month + "-31"
+        ]
+        
+        Alamofire.request("http://staging.api.workforce.id/api/v1/attendance/manageoutgoingrequest", method: .post, parameters: parameters).responseObject{ (response : DataResponse<attendeList>) in
+            let user = response.result.value
+            let statusCode = response.response?.statusCode
+            if statusCode == 200 {
+                completeonClosure(user!)
+            }else{
+                return
+            }
+        }
+        
+    }
+    
     func handleLoginError(user: User?){
         if user?.passMessage != nil && user?.emailMessage != nil{
             createAlert(titleText: "Login Failure", messageText: (user?.status)! + "\n" + (user?.emailMessage)! + "\n" + (user?.passMessage)!)
