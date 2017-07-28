@@ -30,7 +30,7 @@ class ProfileViewController: UIViewController {
     
     @IBAction func logout_Tap(_ sender: Any) {
         UserDefaults.standard.removeObject(forKey: "userData")
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "loginViewController")
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "tabBarFirst")
         self.show(vc!, sender: nil)
     }
     

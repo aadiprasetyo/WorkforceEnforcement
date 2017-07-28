@@ -23,7 +23,7 @@ class forgotPassViewController: UIViewController {
     @IBOutlet weak var headerContainer: UIView!
     @IBOutlet weak var emailTextField: UITextField!
     @IBAction func forgotButton(_ sender: Any) {
-        handleForgotPass()
+        APIManager.sharedAPI.handleForgotPass(email: emailTextField.text!)
     }
     
     
@@ -39,20 +39,7 @@ class forgotPassViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func handleForgotPass(){
-        let emailParameter: Parameters = [
-            "email_target": emailTextField.text!
-        ]
-        Alamofire.request("http://staging.api.workforce.id/api/v1/user/forgotPassword", method: .post, parameters: emailParameter).responseObject { (response : DataResponse<forgotPass>) in
-            let responseMsg = response.result.value
-            let statusCode = response.response?.statusCode
-            if statusCode == 200 {
-                self.createAlert(titleText: "Succes", messageText: (responseMsg?.message)!)
-            }else{
-                self.createAlert(titleText: "Failure", messageText: (responseMsg?.status)!)
-            }
-        }
-    }
+    
     
 }
 

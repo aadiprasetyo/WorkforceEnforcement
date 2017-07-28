@@ -26,7 +26,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     
     @IBAction func buttonLogin(_ sender: Any) {
-        handleLogin()
+        APIManager.sharedAPI.handleLogin(email: emailTextField.text!, password: passwordTextField.text!)
     }
     
     override func viewDidLoad() {
@@ -43,40 +43,8 @@ class LoginViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    func handleLogin(){
-        guard let parameters: Parameters = [
-            "Email": emailTextField.text!,
-            "Password": passwordTextField.text!
-            ]
-        else{
-                return
-        }
-        Alamofire.request("http://staging.api.workforce.id/api/v1/user/login", method: .post, parameters: parameters).responseObject{ (response : DataResponse<User>) in
-            let user = response.result.value
-            let JSONString = user?.toJSONString(prettyPrint: true)
-            let statusCode = response.response?.statusCode
-            if statusCode == 200 {
-                UserDefaults.standard.set(JSONString, forKey: "userData")
-                UserDefaults.standard.synchronize()
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "tabBarId")
-                self.show(vc!, sender: nil)
-            }else{
-                self.handleLoginError(user: user)
-            }
-        }
-    }
     
-    func handleLoginError(user: User?){
-        if user?.passMessage != nil && user?.emailMessage != nil{
-            self.createAlert(titleText: "Login Failure", messageText: (user?.status)! + "\n" + (user?.emailMessage)! + "\n" + (user?.passMessage)!)
-        }else if user?.emailMessage != nil {
-            self.createAlert(titleText: "Login Failure", messageText: (user?.status)! + "\n" + (user?.emailMessage)!)
-        }else if user?.passMessage != nil{
-            self.createAlert(titleText: "Login Failure", messageText: (user?.status)! + "\n" + (user?.passMessage)!)
-        }else{
-            self.createAlert(titleText: "Login Failure", messageText: (user?.status)!)
-        }
-    }
+    
     
     func setupInputsContainerView(){
         

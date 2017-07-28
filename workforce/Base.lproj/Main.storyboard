@@ -329,14 +329,6 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="combinedShapeCopy" translatesAutoresizingMaskIntoConstraints="NO" id="T1j-jF-5Ho">
-                                <rect key="frame" x="16" y="139" width="344" height="124"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="lineCopy2" translatesAutoresizingMaskIntoConstraints="NO" id="fk8-NU-gRH">
-                                <rect key="frame" x="31" y="232" width="312" height="1"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -663,13 +655,11 @@
     <resources>
         <image name="bgButtonLaporan" width="368" height="71"/>
         <image name="businessman64" width="20" height="26"/>
-        <image name="combinedShapeCopy" width="348" height="128"/>
         <image name="edit64" width="35" height="28"/>
         <image name="exit64" width="35" height="35"/>
         <image name="icons8Info64" width="35" height="29"/>
         <image name="icons8Schedule64" width="26" height="26"/>
         <image name="ionChevronRightIoniconsCopy" width="9" height="16"/>
-        <image name="lineCopy2" width="313" height="1"/>
         <image name="logokotak" width="77" height="46"/>
         <image name="pattern1" width="375" height="646"/>
         <image name="shop64" width="26" height="22"/>
