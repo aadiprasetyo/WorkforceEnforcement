@@ -19,7 +19,12 @@ class HomeViewController: UIViewController{
     @IBOutlet weak var ServertimeLabel: UILabel!
     @IBOutlet weak var imageBackground: UIImageView!
     var collectionViews: UICollectionView!
-    var images =  [UIImage(named: "groupCopy")]
+    var images =  [UIImage]()
+    var checkOut = [UILabel]()
+    var checkIn = [UILabel]()
+    var statusCheckOut = [UILabel]()
+    var statusCheckIn = [UILabel]()
+    var workHours = [UILabel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +52,27 @@ class HomeViewController: UIViewController{
                     print(attendeData.status_late)
                     print(attendeData.status_working)
                     print(attendeData.hours_different)
+                    
+                    let checkoutLabel = UILabel()
+                    checkoutLabel.text = attendeData.checkout
+                    
+                    let checkinLabel = UILabel()
+                    checkinLabel.text = attendeData.checkin
+                    
+                    let statuscheckoutLabel = UILabel()
+                    statuscheckoutLabel.text = attendeData.status_working
+                    
+                    let statuscheckinLabel = UILabel()
+                    statuscheckinLabel.text = attendeData.status_late
+                    
+                    let workhousLabel = UILabel()
+                    workhousLabel.text = attendeData.hours_different
+                    
+                    self.checkOut.append(checkoutLabel)
+                    self.checkIn.append(checkinLabel)
+                    self.statusCheckOut.append(statuscheckoutLabel)
+                    self.statusCheckIn.append(statuscheckinLabel)
+                    self.workHours.append(workhousLabel)
                     self.addMoreImages()
                 }
             }
@@ -78,8 +104,7 @@ class HomeViewController: UIViewController{
     }
     
     func addMoreImages(){
-        let moreImages = [UIImage(named: "groupCopy")]
-        images.append(contentsOf: moreImages)
+        images.append(UIImage(named: "groupCopy")!)
         collectionViews.reloadData()
     }
     func setupView(){
@@ -156,6 +181,11 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let imageCell = cell as! attendanceCollectionViewCell
         imageCell.ImageView.image = images[indexPath.row]
+        imageCell.checkOutTime.text = checkOut[indexPath.row].text
+        imageCell.checkInTime.text = checkIn[indexPath.row].text
+        imageCell.statusCheckOut.text = statusCheckOut[indexPath.row].text
+        imageCell.statusCheckIn.text = statusCheckIn[indexPath.row].text
+        imageCell.workHours.text = imageCell.workHours.text! + workHours[indexPath.row].text!
     }
     //Set the size of cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

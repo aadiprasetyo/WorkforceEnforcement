@@ -93,12 +93,12 @@ class attendanceCollectionViewCell: UICollectionViewCell {
         checkOutTime.heightAnchor.constraint(equalToConstant: 12).isActive = true
         checkOutTime.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -7.8).isActive = true
         
-        workHours.text = "WORK HOURS"
+        workHours.text = "WORK HOURS "
         workHours.textColor = UIColor.green
         workHours.textAlignment = .center
         workHours.font = UIFont.systemFont(ofSize: 12)
         workHours.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -19).isActive = true
-        workHours.widthAnchor.constraint(equalToConstant: 97.5).isActive = true
+        workHours.widthAnchor.constraint(equalToConstant: 197.5).isActive = true
         workHours.heightAnchor.constraint(equalToConstant: 12).isActive = true
         workHours.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         
