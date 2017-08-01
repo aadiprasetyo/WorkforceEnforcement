@@ -74,7 +74,8 @@ class APIManager{
     }
     
     func attendanceReport(token: String, year: String, month: String, completeonClosure: @escaping (attendeList) -> Void){
-        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "tabBarFirst")
         let parameters: Parameters = [
             "token": token,
             "Page": 1,
@@ -91,7 +92,8 @@ class APIManager{
             if statusCode == 200 {
                 completeonClosure(user!)
             }else{
-                return
+                UserDefaults.standard.removeObject(forKey: "userData")
+                self.getTopViewController()?.present(vc, animated: true, completion: nil)
             }
         }
         

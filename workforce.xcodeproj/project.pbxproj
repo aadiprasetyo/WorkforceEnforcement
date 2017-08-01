@@ -26,6 +26,7 @@
 		84F67A981F20693F001CC414 /* forgotPassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F67A971F20693F001CC414 /* forgotPassViewController.swift */; };
 		84F67A9C1F2073F8001CC414 /* forgotPassword_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F67A9B1F2073F8001CC414 /* forgotPassword_View.swift */; };
 		84F67AA01F208AEB001CC414 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F67A9F1F208AEB001CC414 /* HomeViewController.swift */; };
+		84FAC1211F2EF05800BD3D04 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FAC1201F2EF05800BD3D04 /* CalendarCell.swift */; };
 		EC40696C7D55D8902F9D4712 /* Pods_workforce.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9097F7953F648A5CD13030E5 /* Pods_workforce.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +54,7 @@
 		84F67A971F20693F001CC414 /* forgotPassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = forgotPassViewController.swift; sourceTree = "<group>"; };
 		84F67A9B1F2073F8001CC414 /* forgotPassword_View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = forgotPassword_View.swift; sourceTree = "<group>"; };
 		84F67A9F1F208AEB001CC414 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		84FAC1201F2EF05800BD3D04 /* CalendarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		9097F7953F648A5CD13030E5 /* Pods_workforce.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_workforce.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -138,6 +140,7 @@
 				841C6AEF1F27341300287DE7 /* NavigationViewController.swift */,
 				843924A71F2854AE002A6E5A /* TabBarViewController.swift */,
 				843924AC1F285C8D002A6E5A /* CalendarViewController.swift */,
+				84FAC1201F2EF05800BD3D04 /* CalendarCell.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84CFC7961F286FB6008B7F6E /* ProfileTableCell.swift in Sources */,
+				84FAC1211F2EF05800BD3D04 /* CalendarCell.swift in Sources */,
 				841C6AF01F27341300287DE7 /* NavigationViewController.swift in Sources */,
 				84F67A9C1F2073F8001CC414 /* forgotPassword_View.swift in Sources */,
 				84F67A981F20693F001CC414 /* forgotPassViewController.swift in Sources */,

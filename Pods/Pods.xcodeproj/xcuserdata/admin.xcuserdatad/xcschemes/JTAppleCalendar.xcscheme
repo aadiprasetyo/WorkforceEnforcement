@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'A62A1A28F792134A1F2E58F12BD631F0'
-               BlueprintName = 'SkyFloatingLabelTextField'
+               BlueprintIdentifier = 'BFED2E29E95E065400F8846E0231A970'
+               BlueprintName = 'JTAppleCalendar'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'SkyFloatingLabelTextField.framework'>
+               BuildableName = 'JTAppleCalendar.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

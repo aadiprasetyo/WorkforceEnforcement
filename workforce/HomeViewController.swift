@@ -98,7 +98,7 @@ class HomeViewController: UIViewController{
         collectionViews.register(attendanceCollectionViewCell.self, forCellWithReuseIdentifier: "imageCell")
         collectionViews.delegate = self
         collectionViews.dataSource = self
-        collectionViews.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        collectionViews.backgroundColor = UIColor.white.withAlphaComponent(0)
         
         
     }

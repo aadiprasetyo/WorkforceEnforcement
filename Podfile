@@ -9,7 +9,7 @@ target 'workforce' do
     pod 'Alamofire', '~> 4.4'
     pod 'ObjectMapper', '~> 2.2'
     pod 'AlamofireObjectMapper', '~> 4.0'
-    pod 'SkyFloatingLabelTextField', '~> 3.0'
+    pod 'JTAppleCalendar', '~> 7.0'
 
   # Pods for workforce
 
