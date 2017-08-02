@@ -8,9 +8,12 @@
 
 import UIKit
 import ObjectMapper
+import DropDown
 
 class HomeViewController: UIViewController{
 
+    @IBOutlet weak var monthPicker: UIButton!
+    @IBOutlet weak var yearPicker: UIButton!
     @IBOutlet weak var LineContainer: UIView!
     @IBOutlet weak var DateContainer: UIView!
     @IBOutlet weak var YearLabel: UILabel!
@@ -19,6 +22,22 @@ class HomeViewController: UIViewController{
     @IBOutlet weak var ServertimeLabel: UILabel!
     @IBOutlet weak var imageBackground: UIImageView!
     var collectionViews: UICollectionView!
+    
+    let years = ["2015", "2016", "2017"]
+    let months = ["January", "February", "March", "April","May", "June", "July", "August", "September", "Octrober", "November", "December"]
+    let dropDownYear = DropDown()
+    let dropDownMonth = DropDown()
+    
+    
+    
+    @IBAction func chooseYear(_ sender: Any) {
+        dropDownYear.show()
+    }
+    @IBAction func chooseMonth(_ sender: Any) {
+        dropDownMonth.show()
+    }
+    
+    
     var images =  [UIImage]()
     var checkOut = [UILabel]()
     var checkIn = [UILabel]()
@@ -29,6 +48,32 @@ class HomeViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        let components = DateComponents()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM"
+        
+        dropDownYear.bottomOffset = CGPoint(x: 0, y: yearPicker.bounds.height)
+        dropDownYear.anchorView = yearPicker
+        dropDownYear.dataSource = years
+        dropDownYear.selectionAction = { [unowned self] (index, item) in
+            self.yearPicker.setTitle(item, for: .normal)
+            print(item)
+            let monthString = self.monthPicker.titleLabel?.text
+            if let date = formatter.date(from: monthString!) {
+                let month  = NSCalendar.current.component([.Month, .Day], from: monthString)
+                print(month)  // 5
+            }
+            //self.attendeList(year: item, month: month)
+        }
+        
+        dropDownMonth.bottomOffset = CGPoint(x: 0, y: monthPicker.bounds.height)
+        dropDownMonth.anchorView = monthPicker
+        dropDownMonth.dataSource = months
+        dropDownMonth.selectionAction = { [unowned self] (index, item) in
+            self.monthPicker.setTitle(item, for: .normal)
+        }
         
         tabBarController?.navigationItem.title = "Home"
         userData = Mapper<User>().map(JSONString: UserDefaults.standard.object(forKey: "userData") as! String)
@@ -42,9 +87,37 @@ class HomeViewController: UIViewController{
         collectionViews.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/1.09).isActive = true
         collectionViews.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         collectionViews.topAnchor.constraint(equalTo: DateContainer.bottomAnchor).isActive = true
-        APIManager.sharedAPI.attendanceReport(token: (userData?.token)!, year: "2016", month: "07"){
+        attendeList(year: "2016", month: "6")
+        
+        // Do any additional setup after loading the view.
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        tabBarController?.navigationItem.title = "Home"
+    }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    func setupCollectionView(){
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        collectionViews = UICollectionView(frame: view.frame, collectionViewLayout: layout)
+        collectionViews.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 100, right: 0)
+        collectionViews.scrollIndicatorInsets = UIEdgeInsets(top: 8, left: 0, bottom: 100, right: -10)
+        collectionViews.register(attendanceCollectionViewCell.self, forCellWithReuseIdentifier: "imageCell")
+        collectionViews.delegate = self
+        collectionViews.dataSource = self
+        collectionViews.backgroundColor = UIColor.white.withAlphaComponent(0)
+        
+        
+    }
+    
+    func attendeList(year: String, month: String){
+        APIManager.sharedAPI.attendanceReport(token: (userData?.token)!, year: year, month: month){
             Data in
             if let attendeDataList = Data.attendeDataList {
+                
                 for attendeData in attendeDataList {
                     print(attendeData.attendanceid)
                     print(attendeData.checkin)
@@ -77,30 +150,6 @@ class HomeViewController: UIViewController{
                 }
             }
         }
-        
-        // Do any additional setup after loading the view.
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        tabBarController?.navigationItem.title = "Home"
-    }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func setupCollectionView(){
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
-        collectionViews = UICollectionView(frame: view.frame, collectionViewLayout: layout)
-        collectionViews.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 100, right: 0)
-        collectionViews.scrollIndicatorInsets = UIEdgeInsets(top: 8, left: 0, bottom: 100, right: -10)
-        collectionViews.register(attendanceCollectionViewCell.self, forCellWithReuseIdentifier: "imageCell")
-        collectionViews.delegate = self
-        collectionViews.dataSource = self
-        collectionViews.backgroundColor = UIColor.white.withAlphaComponent(0)
-        
-        
     }
     
     func addMoreImages(){
@@ -123,11 +172,20 @@ class HomeViewController: UIViewController{
         YearLabel.topAnchor.constraint(equalTo: DateContainer.topAnchor, constant: 7).isActive = true
         YearLabel.textColor = UIColor.gray
         
+        
+        yearPicker.translatesAutoresizingMaskIntoConstraints = false
+        yearPicker.leftAnchor.constraint(equalTo: DateContainer.leftAnchor, constant: 19.1 ).isActive = true
+        yearPicker.topAnchor.constraint(equalTo: YearLabel.topAnchor, constant: 7).isActive = true
+        
         MonthLabel.translatesAutoresizingMaskIntoConstraints = false
-        MonthLabel.rightAnchor.constraint(equalTo: DateContainer.rightAnchor, constant: -54 ).isActive = true
+        MonthLabel.leftAnchor.constraint(equalTo: LineContainer.rightAnchor, constant: 18.5 ).isActive = true
         MonthLabel.topAnchor.constraint(equalTo: DateContainer.topAnchor, constant: 7).isActive = true
         MonthLabel.textColor = UIColor.gray
         
+        
+        monthPicker.translatesAutoresizingMaskIntoConstraints = false
+        monthPicker.leftAnchor.constraint(equalTo: LineContainer.rightAnchor, constant: 18.5 ).isActive = true
+        monthPicker.topAnchor.constraint(equalTo: MonthLabel.topAnchor, constant: 7).isActive = true
         
         ServertimeContainer.translatesAutoresizingMaskIntoConstraints = false
         ServertimeContainer.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3.2).isActive = true

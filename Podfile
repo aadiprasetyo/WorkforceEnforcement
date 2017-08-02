@@ -10,6 +10,7 @@ target 'workforce' do
     pod 'ObjectMapper', '~> 2.2'
     pod 'AlamofireObjectMapper', '~> 4.0'
     pod 'JTAppleCalendar', '~> 7.0'
+    pod 'DropDown'
 
   # Pods for workforce
 

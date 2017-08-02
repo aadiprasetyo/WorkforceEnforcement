@@ -14,8 +14,8 @@ class CalendarViewController: UIViewController{
     @IBOutlet weak var calendarView: JTAppleCalendarView!
     @IBOutlet weak var month: UILabel!
     @IBOutlet weak var year: UILabel!
-    @IBOutlet weak var labelYearBefore: UILabel!
-    @IBOutlet weak var labelYearAfter: UILabel!
+//    @IBOutlet weak var labelYearBefore: UILabel!
+//    @IBOutlet weak var labelYearAfter: UILabel!
     @IBOutlet weak var labelMonthBefore: UILabel!
     @IBOutlet weak var labelMonthAfter: UILabel!
     
@@ -87,23 +87,22 @@ class CalendarViewController: UIViewController{
             if number == 12 {
                 monthB = self.formatter.monthSymbols[10]
                 monthA = self.formatter.monthSymbols[0]
-                self.labelYearBefore.text = self.year.text
-                self.labelYearAfter.text = String(Int(self.year.text!)! + 1)
+//                self.labelYearBefore.text = self.year.text
+//                self.labelYearAfter.text = String(Int(self.year.text!)! + 1)
             }else if number == 1 {
                 monthB = self.formatter.monthSymbols[11]
                 monthA = self.formatter.monthSymbols[1]
-                self.labelYearBefore.text = String(Int(self.year.text!)! - 1)
-                self.labelYearAfter.text = self.year.text
+//                self.labelYearBefore.text = String(Int(self.year.text!)! - 1)
+//                self.labelYearAfter.text = self.year.text
             }
         }else{
             monthB = self.formatter.monthSymbols[(number!-1)-1]
             monthA = self.formatter.monthSymbols[(number!+1)-1]
-            self.labelYearBefore.text = self.year.text
-            self.labelYearAfter.text = self.year.text
+//            self.labelYearBefore.text = self.year.text
+//            self.labelYearAfter.text = self.year.text
         }
-        self.labelMonthBefore.text = monthB!
-        self.labelMonthAfter.text = monthA!
-        
+        labelMonthBefore.text = monthB
+        labelMonthAfter.text = monthA
 
         
         
