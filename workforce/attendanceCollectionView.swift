@@ -63,33 +63,37 @@ class attendanceCollectionViewCell: UICollectionViewCell {
         statusCheckIn.text = "LUL"
         statusCheckIn.font = UIFont.systemFont(ofSize: 12)
         statusCheckIn.textAlignment = .center
-        statusCheckIn.backgroundColor = UIColor.green
+        statusCheckIn.backgroundColor = UIColor(red: 4/255, green: 166/255, blue: 83/255, alpha: 1)
         statusCheckIn.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 56.5).isActive = true
         statusCheckIn.widthAnchor.constraint(equalToConstant: 97.5).isActive = true
         statusCheckIn.heightAnchor.constraint(equalToConstant: 22.5).isActive = true
         statusCheckIn.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8.3).isActive = true
-        
+        statusCheckIn.layer.masksToBounds = true
+        statusCheckIn.layer.cornerRadius = 2
+
         checkInTime.text = "haHAA"
         checkInTime.textColor = UIColor.gray
         checkInTime.font = UIFont.systemFont(ofSize: 12)
         checkInTime.bottomAnchor.constraint(equalTo: statusCheckIn.topAnchor, constant: -6.5).isActive = true
-        checkInTime.widthAnchor.constraint(equalToConstant: 97.5).isActive = true
+        checkInTime.widthAnchor.constraint(equalToConstant: 137.5).isActive = true
         checkInTime.heightAnchor.constraint(equalToConstant: 12).isActive = true
         checkInTime.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8.3).isActive = true
         
         statusCheckOut.text = "XD"
         statusCheckOut.textAlignment = .center
-        statusCheckOut.backgroundColor = UIColor.red
+        statusCheckOut.backgroundColor = UIColor(red: 255/255, green: 23/255, blue: 68/255, alpha: 1)
         statusCheckOut.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 56.5).isActive = true
         statusCheckOut.widthAnchor.constraint(equalToConstant: 97.5).isActive = true
         statusCheckOut.heightAnchor.constraint(equalToConstant: 22.5).isActive = true
         statusCheckOut.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -7.8).isActive = true
+        statusCheckOut.layer.masksToBounds = true
+        statusCheckOut.layer.cornerRadius = 2
         
         checkOutTime.text = "haHAA"
         checkOutTime.textColor = UIColor.gray
         checkOutTime.font = UIFont.systemFont(ofSize: 12)
         checkOutTime.bottomAnchor.constraint(equalTo: statusCheckIn.topAnchor, constant: -6.5).isActive = true
-        checkOutTime.widthAnchor.constraint(equalToConstant: 97.5).isActive = true
+        checkOutTime.widthAnchor.constraint(equalToConstant: 137.5).isActive = true
         checkOutTime.heightAnchor.constraint(equalToConstant: 12).isActive = true
         checkOutTime.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -7.8).isActive = true
         

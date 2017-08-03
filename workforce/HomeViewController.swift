@@ -50,22 +50,24 @@ class HomeViewController: UIViewController{
         setupView()
         
         let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
-        let components = DateComponents()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM"
+        var monthNumber: DateComponents?
+        var monthNum: Int?
         
         dropDownYear.bottomOffset = CGPoint(x: 0, y: yearPicker.bounds.height)
         dropDownYear.anchorView = yearPicker
         dropDownYear.dataSource = years
         dropDownYear.selectionAction = { [unowned self] (index, item) in
             self.yearPicker.setTitle(item, for: .normal)
-            print(item)
-            let monthString = self.monthPicker.titleLabel?.text
-            if let date = formatter.date(from: monthString!) {
-                let month  = NSCalendar.current.component([.Month, .Day], from: monthString)
-                print(month)  // 5
+            let df = DateFormatter()
+            let monthName = self.monthPicker.titleLabel?.text
+            df.dateFormat = "LLLL"  // if you need 3 letter month just use "LLL"
+            if let date = df.date(from: monthName!) {
+                monthNumber  = calendar.dateComponents([.month], from: date)
+                monthNum = monthNumber?.month
+                self.attendeList(year: item, month: monthNum!)
             }
-            //self.attendeList(year: item, month: month)
+            
+            
         }
         
         dropDownMonth.bottomOffset = CGPoint(x: 0, y: monthPicker.bounds.height)
@@ -73,6 +75,14 @@ class HomeViewController: UIViewController{
         dropDownMonth.dataSource = months
         dropDownMonth.selectionAction = { [unowned self] (index, item) in
             self.monthPicker.setTitle(item, for: .normal)
+            let df = DateFormatter()
+            let yearNum = self.yearPicker.titleLabel?.text
+            df.dateFormat = "LLLL"  // if you need 3 letter month just use "LLL"
+            if let date = df.date(from: item) {
+                monthNumber  = calendar.dateComponents([.month], from: date)
+                monthNum = monthNumber?.month
+                self.attendeList(year: yearNum!, month: monthNum!)
+            }
         }
         
         tabBarController?.navigationItem.title = "Home"
@@ -87,7 +97,7 @@ class HomeViewController: UIViewController{
         collectionViews.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/1.09).isActive = true
         collectionViews.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         collectionViews.topAnchor.constraint(equalTo: DateContainer.bottomAnchor).isActive = true
-        attendeList(year: "2016", month: "6")
+        attendeList(year: "2016", month: 6)
         
         // Do any additional setup after loading the view.
     }
@@ -113,10 +123,19 @@ class HomeViewController: UIViewController{
         
     }
     
-    func attendeList(year: String, month: String){
-        APIManager.sharedAPI.attendanceReport(token: (userData?.token)!, year: year, month: month){
+    func attendeList(year: String, month: Int){
+        let monthString = String(month)
+        APIManager.sharedAPI.attendanceReport(token: (userData?.token)!, year: year, month: monthString){
             Data in
             if let attendeDataList = Data.attendeDataList {
+                
+                self.checkOut = [UILabel]()
+                self.images =  [UIImage]()
+                self.checkOut = [UILabel]()
+                self.checkIn = [UILabel]()
+                self.statusCheckOut = [UILabel]()
+                self.statusCheckIn = [UILabel]()
+                self.workHours = [UILabel]()
                 
                 for attendeData in attendeDataList {
                     print(attendeData.attendanceid)
@@ -146,16 +165,13 @@ class HomeViewController: UIViewController{
                     self.statusCheckOut.append(statuscheckoutLabel)
                     self.statusCheckIn.append(statuscheckinLabel)
                     self.workHours.append(workhousLabel)
-                    self.addMoreImages()
+                    self.images.append(UIImage(named: "groupCopy")!)
+                    self.collectionViews.reloadData()
                 }
             }
         }
     }
     
-    func addMoreImages(){
-        images.append(UIImage(named: "groupCopy")!)
-        collectionViews.reloadData()
-    }
     func setupView(){
         DateContainer.translatesAutoresizingMaskIntoConstraints = false
         DateContainer.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/1.7).isActive = true
