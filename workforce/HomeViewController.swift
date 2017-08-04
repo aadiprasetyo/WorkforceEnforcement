@@ -24,7 +24,7 @@ class HomeViewController: UIViewController{
     var collectionViews: UICollectionView!
     
     let years = ["2015", "2016", "2017"]
-    let months = ["January", "February", "March", "April","May", "June", "July", "August", "September", "Octrober", "November", "December"]
+    let months = ["January", "February", "March", "April","May", "June", "July", "August", "September", "October", "November", "December"]
     let dropDownYear = DropDown()
     let dropDownMonth = DropDown()
     
@@ -96,7 +96,7 @@ class HomeViewController: UIViewController{
         collectionViews.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
         collectionViews.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/1.09).isActive = true
         collectionViews.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        collectionViews.topAnchor.constraint(equalTo: DateContainer.bottomAnchor).isActive = true
+        collectionViews.topAnchor.constraint(equalTo: DateContainer.bottomAnchor, constant: 10).isActive = true
         attendeList(year: "2016", month: 6)
         
         // Do any additional setup after loading the view.
@@ -113,7 +113,7 @@ class HomeViewController: UIViewController{
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         collectionViews = UICollectionView(frame: view.frame, collectionViewLayout: layout)
-        collectionViews.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 100, right: 0)
+        collectionViews.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 100, right: 0)
         collectionViews.scrollIndicatorInsets = UIEdgeInsets(top: 8, left: 0, bottom: 100, right: -10)
         collectionViews.register(attendanceCollectionViewCell.self, forCellWithReuseIdentifier: "imageCell")
         collectionViews.delegate = self
@@ -138,13 +138,6 @@ class HomeViewController: UIViewController{
                 self.workHours = [UILabel]()
                 
                 for attendeData in attendeDataList {
-                    print(attendeData.attendanceid)
-                    print(attendeData.checkin)
-                    print(attendeData.checkout)
-                    print(attendeData.status_late)
-                    print(attendeData.status_working)
-                    print(attendeData.hours_different)
-                    
                     let checkoutLabel = UILabel()
                     checkoutLabel.text = attendeData.checkout
                     
@@ -257,9 +250,28 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
         imageCell.ImageView.image = images[indexPath.row]
         imageCell.checkOutTime.text = checkOut[indexPath.row].text
         imageCell.checkInTime.text = checkIn[indexPath.row].text
-        imageCell.statusCheckOut.text = statusCheckOut[indexPath.row].text
-        imageCell.statusCheckIn.text = statusCheckIn[indexPath.row].text
-        imageCell.workHours.text = imageCell.workHours.text! + workHours[indexPath.row].text!
+        imageCell.statusCheckOut.text = statusCheckOut[indexPath.row].text?.uppercased()
+        imageCell.statusCheckIn.text = statusCheckIn[indexPath.row].text?.uppercased()
+        let numberWorks = Double(workHours[indexPath.row].text!)
+        
+        if statusCheckIn[indexPath.row].text == "no" {
+            imageCell.statusCheckIn.text = "ON TIME"
+            imageCell.statusCheckIn.backgroundColor = UIColor(red: 4/255, green: 166/255, blue: 83/255, alpha: 1)
+        }else{
+            imageCell.statusCheckIn.text = "LATE"
+            imageCell.statusCheckIn.backgroundColor = UIColor(red: 255/255, green: 23/255, blue: 68/255, alpha: 1)
+        }
+        
+        if numberWorks! >= 9{
+            imageCell.workHours.textColor = UIColor(red: 42/255, green: 147/255, blue: 137/255, alpha: 1)
+            imageCell.statusCheckOut.backgroundColor = UIColor(red: 4/255, green: 166/255, blue: 83/255, alpha: 1)
+            
+        }else{
+            imageCell.workHours.textColor = UIColor(red: 255/255, green: 23/255, blue: 68/255, alpha: 1)
+            imageCell.statusCheckOut.backgroundColor = UIColor(red: 255/255, green: 23/255, blue: 68/255, alpha: 1)
+        }
+        
+        imageCell.workHours.text = "WORK HOURS " + String(format: "%.1f", numberWorks!)
     }
     //Set the size of cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

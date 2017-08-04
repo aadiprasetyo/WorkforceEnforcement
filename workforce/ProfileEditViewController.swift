@@ -29,7 +29,6 @@ class ProfileEditViewController: UIViewController, UITableViewDelegate, UITableV
         setupView()
         profileTable.delegate = self
         profileTable.dataSource = self
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

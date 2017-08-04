@@ -80,7 +80,7 @@ class attendeList: Mappable{
 }
 
 class attendeData: Mappable {
-    var attendanceid: String?
+    var attendanceid: Int?
     var checkin: String?
     var checkout: String?
     var status_late: String?
@@ -98,5 +98,43 @@ class attendeData: Mappable {
         status_late     <- map["status_late"]
         status_working  <- map["status_working"]
         hours_different <- map["hours_different"]
+    }
+}
+
+class holidaysList: Mappable {
+    var status: String?
+    var TotalData: Int?
+    var dataList: [holidayData]?
+    
+    required init?(map: Map){
+        
+    }
+    
+    func mapping(map: Map) {
+        status      <- map["Status"]
+        TotalData   <- map["TotalData"]
+        dataList    <- map["Data"]
+    }
+}
+
+class holidayData: Mappable {
+    var holiday_id: Int?
+    var year: Int?
+    var date_start: String?
+    var date_end: String?
+    var holidayName: String?
+    var holidayDesc: String?
+    
+    required init?(map: Map){
+        
+    }
+    
+    func mapping(map: Map) {
+        holiday_id  <- map["holiday_calendar_id"]
+        year        <- map["year"]
+        date_start  <- map["date_start"]
+        date_end    <- map["date_end"]
+        holidayName <- map["name"]
+        holidayDesc <- map["description"]
     }
 }

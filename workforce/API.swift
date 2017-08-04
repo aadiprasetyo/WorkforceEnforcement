@@ -73,6 +73,32 @@ class APIManager{
         }
     }
     
+    func handleHolidayList(token: String, year: String, month: String, completeonClosure: @escaping (holidaysList) -> Void){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "tabBarFirst")
+        let parameters: Parameters = [
+            "token": token
+        ]
+        
+        Alamofire.request("http://staging.api.workforce.id/api/v1/holiday/manage", method: .post, parameters: parameters).responseObject{ (response : DataResponse<holidaysList>) in
+            let user = response.result.value
+            let statusCode = response.response?.statusCode
+            if statusCode == 200 {
+                if user?.TotalData != 0 {
+                    completeonClosure(user!)
+                }else{
+                    self.createAlert(titleText: "Error", messageText: "Data not found")
+                }
+                
+            }else{
+                self.createAlert(titleText: "Error", messageText: "You need to Log in First")
+                UserDefaults.standard.removeObject(forKey: "userData")
+                self.getTopViewController()?.present(vc, animated: true, completion: nil)
+            }
+        }
+        
+    }
+    
     func attendanceReport(token: String, year: String, month: String, completeonClosure: @escaping (attendeList) -> Void){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "tabBarFirst")
@@ -90,8 +116,14 @@ class APIManager{
             let user = response.result.value
             let statusCode = response.response?.statusCode
             if statusCode == 200 {
-                completeonClosure(user!)
+                if user?.TotalData != 0 {
+                    completeonClosure(user!)
+                }else{
+                    self.createAlert(titleText: "Error", messageText: "Data not found")
+                }
+                
             }else{
+                self.createAlert(titleText: "Error", messageText: "You need to Log in First")
                 UserDefaults.standard.removeObject(forKey: "userData")
                 self.getTopViewController()?.present(vc, animated: true, completion: nil)
             }

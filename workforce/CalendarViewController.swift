@@ -14,10 +14,12 @@ class CalendarViewController: UIViewController{
     @IBOutlet weak var calendarView: JTAppleCalendarView!
     @IBOutlet weak var month: UILabel!
     @IBOutlet weak var year: UILabel!
-//    @IBOutlet weak var labelYearBefore: UILabel!
-//    @IBOutlet weak var labelYearAfter: UILabel!
+    
+    @IBOutlet weak var descHolidayLabel: UILabel!
+    @IBOutlet weak var dateHolidayLabel: UILabel!
     @IBOutlet weak var labelMonthBefore: UILabel!
     @IBOutlet weak var labelMonthAfter: UILabel!
+    
     
     let outsideMonthColor = UIColor.lightGray
     let monthColor = UIColor.black
@@ -87,24 +89,44 @@ class CalendarViewController: UIViewController{
             if number == 12 {
                 monthB = self.formatter.monthSymbols[10]
                 monthA = self.formatter.monthSymbols[0]
-//                self.labelYearBefore.text = self.year.text
-//                self.labelYearAfter.text = String(Int(self.year.text!)! + 1)
             }else if number == 1 {
                 monthB = self.formatter.monthSymbols[11]
                 monthA = self.formatter.monthSymbols[1]
-//                self.labelYearBefore.text = String(Int(self.year.text!)! - 1)
-//                self.labelYearAfter.text = self.year.text
             }
         }else{
             monthB = self.formatter.monthSymbols[(number!-1)-1]
             monthA = self.formatter.monthSymbols[(number!+1)-1]
-//            self.labelYearBefore.text = self.year.text
-//            self.labelYearAfter.text = self.year.text
         }
         labelMonthBefore.text = monthB
         labelMonthAfter.text = monthA
 
         
+        
+    }
+    
+    func handleHolidays(from visibleDates: DateSegmentInfo){
+        let date = visibleDates.monthDates.first!.date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM yyyy"
+        dateHolidayLabel.text = ""
+        descHolidayLabel.text = ""
+        let nigeriaCurrentDateString = "07 2017"
+        let indonesiaDateString = "08 2017"
+        let cellStateDateString = dateFormatter.string(from: date)
+        if  nigeriaCurrentDateString ==  cellStateDateString {
+            dateHolidayLabel.text = "17 July"
+            descHolidayLabel.text = "Hari Kemerdekaan Nigeria"
+        }else if indonesiaDateString == cellStateDateString {
+            dateHolidayLabel.text = "17 Aug\n18 Aug"
+            descHolidayLabel.text = "Hari Kemerdekaan Indonesia\nHari Nigger"
+        }else{
+            dateHolidayLabel.text = ""
+            descHolidayLabel.text = ""
+        }
+        descHolidayLabel.frame = CGRect(x: 70, y: 5, width: 200, height: 800)
+        dateHolidayLabel.frame = CGRect(x: 20, y: 5, width: 200, height: 800)
+        descHolidayLabel.sizeToFit();
+        dateHolidayLabel.sizeToFit()
         
     }
     
@@ -117,12 +139,14 @@ class CalendarViewController: UIViewController{
         
         let currentDateString = dateFormatter.string(from: currentDay)
         let cellStateDateString = dateFormatter.string(from: cellState.date)
-        
+//        print(currentDateString)
+//        print(cellStateDateString)
         if  currentDateString ==  cellStateDateString {
             validCell.selectedView.isHidden = false
-            
         }
     }
+    
+    
     
     func handleCellSelected(view: JTAppleCell?, cellState: CellState) {
         guard let validCell = view as? CalendarCell else { return }
@@ -172,6 +196,7 @@ extension CalendarViewController: JTAppleCalendarViewDelegate {
         handleCelltextColor(view: cell, cellState: cellState)
         handleCurrentDay(view: cell, cellState: cellState)
         
+        
         return cell
         
     }
@@ -202,6 +227,7 @@ extension CalendarViewController: JTAppleCalendarViewDelegate {
     
     func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
         self.setupViewsOfCalendar(from: visibleDates)
+        handleHolidays(from: visibleDates)
     }
     
 }

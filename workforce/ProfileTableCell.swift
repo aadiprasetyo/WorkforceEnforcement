@@ -23,6 +23,7 @@ class ProfileCell: UITableViewCell {
     let detailLabel: UILabel = {
         let dl = UILabel()
         dl.font = UIFont.systemFont(ofSize: 12)
+        dl.layer.masksToBounds = true
         dl.textColor = UIColor(red: 159/255, green: 159/255, blue: 166/255, alpha: 1)
         dl.translatesAutoresizingMaskIntoConstraints = false
         return dl
