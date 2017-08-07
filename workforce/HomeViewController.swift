@@ -9,6 +9,7 @@
 import UIKit
 import ObjectMapper
 import DropDown
+import Material
 
 class HomeViewController: UIViewController{
 
@@ -69,7 +70,6 @@ class HomeViewController: UIViewController{
             
             
         }
-        
         dropDownMonth.bottomOffset = CGPoint(x: 0, y: monthPicker.bounds.height)
         dropDownMonth.anchorView = monthPicker
         dropDownMonth.dataSource = months
@@ -99,6 +99,7 @@ class HomeViewController: UIViewController{
         collectionViews.topAnchor.constraint(equalTo: DateContainer.bottomAnchor, constant: 10).isActive = true
         attendeList(year: "2016", month: 6)
         
+        fabMenuController?.prepare()
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {

@@ -21,6 +21,7 @@ class NavigationViewController: UINavigationController {
         navBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navBar.shadowImage = UIImage()
         navBar.isTranslucent = false
+        
         // Do any additional setup after loading the view.
     }
     override func didReceiveMemoryWarning() {

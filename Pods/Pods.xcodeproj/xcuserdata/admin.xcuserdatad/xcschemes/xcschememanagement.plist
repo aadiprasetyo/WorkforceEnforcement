@@ -24,6 +24,21 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Material-com.cosmicmind.material.fonts.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Material-com.cosmicmind.material.icons.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Material.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>ObjectMapper.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,12 +57,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>50105EE2A7833C45C64BBE548C014B05</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>5168099F2EBFC99A707C03C9EADE01A5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5EE2CEEB64EE9EFB7352BDDF43C79E8E</key>
+		<key>6D70027C7CC8923E61FCC717138E5305</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -63,6 +83,16 @@
 			<true/>
 		</dict>
 		<key>BFED2E29E95E065400F8846E0231A970</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E5CD470E4970CEE6A3DC3A70DCCDDA28</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FF01A5F247DA8BE1B205E7A35501A125</key>
 		<dict>
 			<key>primary</key>
 			<true/>
