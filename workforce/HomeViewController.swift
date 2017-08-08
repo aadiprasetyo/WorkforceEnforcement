@@ -55,7 +55,7 @@ class HomeViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        
+        let df = DateFormatter()
         let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         var monthNumber: DateComponents?
         var monthNum: Int?
@@ -65,7 +65,7 @@ class HomeViewController: UIViewController{
         dropDownYear.dataSource = years
         dropDownYear.selectionAction = { [unowned self] (index, item) in
             self.yearPicker.setTitle(item, for: .normal)
-            let df = DateFormatter()
+            
             let monthName = self.monthPicker.titleLabel?.text
             df.dateFormat = "LLLL"  // if you need 3 letter month just use "LLL"
             if let date = df.date(from: monthName!) {
@@ -81,8 +81,8 @@ class HomeViewController: UIViewController{
         dropDownMonth.dataSource = months
         dropDownMonth.selectionAction = { [unowned self] (index, item) in
             self.monthPicker.setTitle(item, for: .normal)
-            let df = DateFormatter()
             let yearNum = self.yearPicker.titleLabel?.text
+            
             df.dateFormat = "LLLL"  // if you need 3 letter month just use "LLL"
             if let date = df.date(from: item) {
                 monthNumber  = calendar.dateComponents([.month], from: date)
@@ -104,7 +104,13 @@ class HomeViewController: UIViewController{
         collectionViews.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/1.09).isActive = true
         collectionViews.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         collectionViews.topAnchor.constraint(equalTo: DateContainer.bottomAnchor, constant: 10).isActive = true
-        attendeList(year: (yearPicker.titleLabel?.text)!, month: (monthPicker.titleLabel?.text)!)
+        
+        df.dateFormat = "LLLL"  // if you need 3 letter month just use "LLL"
+        if let date = df.date(from: (monthPicker.titleLabel?.text)!) {
+            monthNumber  = calendar.dateComponents([.month], from: date)
+            monthNum = monthNumber?.month
+            self.attendeList(year: (yearPicker.titleLabel?.text)!, month: String(monthNum!))
+        }
         
         // Do any additional setup after loading the view.
     }
