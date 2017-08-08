@@ -158,7 +158,7 @@ class HomeViewController: UIViewController, FloatyDelegate{
         checkOut.handler = { item in
             print("check out")
         }
-        
+        floaty.openAnimationType = .slideLeft
         floaty.addItem(item: checkIn)
         floaty.addItem(item: checkOut)
         floaty.paddingX = self.view.frame.width/4.5 - floaty.frame.width

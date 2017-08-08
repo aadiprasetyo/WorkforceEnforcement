@@ -44,7 +44,23 @@ class APIManager{
     }
     
     func handleCheckOut(timeIn: String, timeOut: String){
+        guard let parameters: Parameters = [
+            "Email": timeIn,
+            "Password": timeOut
+            ]
+            else{
+                return
+        }
+    }
     
+    func handleCheckIn(timeIn: String, timeOut: String){
+        guard let parameters: Parameters = [
+            "Email": timeIn,
+            "Password": timeOut
+            ]
+            else{
+                return
+        }
     }
     
     func handleLogin(email: String, password: String){
