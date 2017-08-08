@@ -72,7 +72,7 @@ class attendanceCollectionViewCell: UICollectionViewCell {
         statusCheckIn.layer.cornerRadius = 2
 
         checkInTime.textColor = UIColor.gray
-        checkInTime.font = UIFont.systemFont(ofSize: 12)
+        checkInTime.font = UIFont.systemFont(ofSize: 10)
         checkInTime.bottomAnchor.constraint(equalTo: statusCheckIn.topAnchor, constant: -6.5).isActive = true
         checkInTime.widthAnchor.constraint(equalToConstant: 137.5).isActive = true
         checkInTime.heightAnchor.constraint(equalToConstant: 12).isActive = true
@@ -90,7 +90,7 @@ class attendanceCollectionViewCell: UICollectionViewCell {
         statusCheckOut.layer.cornerRadius = 2
         
         checkOutTime.textColor = UIColor.gray
-        checkOutTime.font = UIFont.systemFont(ofSize: 12)
+        checkOutTime.font = UIFont.systemFont(ofSize: 10)
         checkOutTime.bottomAnchor.constraint(equalTo: statusCheckIn.topAnchor, constant: -6.5).isActive = true
         checkOutTime.widthAnchor.constraint(equalToConstant: 137.5).isActive = true
         checkOutTime.heightAnchor.constraint(equalToConstant: 12).isActive = true

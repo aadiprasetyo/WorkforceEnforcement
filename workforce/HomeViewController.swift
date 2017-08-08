@@ -126,25 +126,37 @@ class HomeViewController: UIViewController, FloatyDelegate{
     
     func layoutFAB() {
         floaty.buttonColor = UIColor(red: 4/255, green: 166/255, blue: 83/255, alpha: 1)
-        
+        floaty.plusColor = UIColor.white
         let checkIn = FloatyItem()
         checkIn.buttonColor = UIColor(red: 216/255, green: 216/255, blue: 216/255, alpha: 1)
         checkIn.icon = UIImage(named: "checkIn")
         checkIn.circleShadowColor = UIColor(red: 100/255, green: 100/255, blue: 100/255, alpha: 1)
-        checkIn.titleShadowColor = UIColor.blue
+        checkIn.titleShadowColor = UIColor.black
         checkIn.title = "Check In"
+        checkIn.titleColor = UIColor.black
+        checkIn.titleLabel.textAlignment = .center
+        checkIn.titleLabel.font = UIFont.systemFont(ofSize: 8)
+        checkIn.titleLabel.backgroundColor = UIColor.white
+        checkIn.titleLabel.layer.masksToBounds = true
+        checkIn.titleLabel.layer.cornerRadius = 4
         checkIn.handler = { item in
-            
+            print("check in")
         }
         
         let checkOut = FloatyItem()
         checkOut.buttonColor = UIColor(red: 245/255, green: 166/255, blue: 35/255, alpha: 1)
         checkOut.icon = UIImage(named: "checkOut")
         checkOut.circleShadowColor = UIColor(red: 100/255, green: 100/255, blue: 100/255, alpha: 1)
-        checkOut.titleShadowColor = UIColor.blue
+        checkOut.titleShadowColor = UIColor.black
         checkOut.title = "Check Out"
+        checkOut.titleColor = UIColor.black
+        checkOut.titleLabel.textAlignment = .center
+        checkOut.titleLabel.font = UIFont.systemFont(ofSize: 8)
+        checkOut.titleLabel.backgroundColor = UIColor.white
+        checkOut.titleLabel.layer.masksToBounds = true
+        checkOut.titleLabel.layer.cornerRadius = 4
         checkOut.handler = { item in
-            
+            print("check out")
         }
         
         floaty.addItem(item: checkIn)
@@ -300,10 +312,22 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
     }
     //Method to populate the data of a given cell
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        
+        let dateCheckIn = dateFormatter.date(from: checkIn[indexPath.row].text!)
+        let dateCheckOut = dateFormatter.date(from: checkOut[indexPath.row].text!)
+        
+        dateFormatter.dateFormat = "E, dd MMM yyyy - HH:mm"
+        
+        let checkInTime = dateFormatter.string(from: dateCheckIn!)
+        let checkOutTime = dateFormatter.string(from: dateCheckOut!)
+        
         let imageCell = cell as! attendanceCollectionViewCell
         imageCell.ImageView.image = images[indexPath.row]
-        imageCell.checkOutTime.text = checkOut[indexPath.row].text
-        imageCell.checkInTime.text = checkIn[indexPath.row].text
+        imageCell.checkOutTime.text = checkOutTime
+        imageCell.checkInTime.text = checkInTime
         imageCell.statusCheckOut.text = statusCheckOut[indexPath.row].text?.uppercased()
         imageCell.statusCheckIn.text = statusCheckIn[indexPath.row].text?.uppercased()
         let numberWorks = Double(workHours[indexPath.row].text!)
