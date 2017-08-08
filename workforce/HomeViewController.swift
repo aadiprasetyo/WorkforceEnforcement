@@ -125,36 +125,35 @@ class HomeViewController: UIViewController, FloatyDelegate{
     }
     
     func layoutFAB() {
+        floaty.buttonColor = UIColor(red: 4/255, green: 166/255, blue: 83/255, alpha: 1)
         
-        //floaty.hasShadow = false
-        floaty.addItem("Check In", icon: UIImage(named: "CHECK IN"))
-        floaty.addItem("Check Out", icon: UIImage(named: "check out")) { item in
-            let alert = UIAlertController(title: "Hey", message: "I'm hungry...", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Me too", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+        let checkIn = FloatyItem()
+        checkIn.buttonColor = UIColor(red: 216/255, green: 216/255, blue: 216/255, alpha: 1)
+        checkIn.icon = UIImage(named: "checkIn")
+        checkIn.circleShadowColor = UIColor(red: 100/255, green: 100/255, blue: 100/255, alpha: 1)
+        checkIn.titleShadowColor = UIColor.blue
+        checkIn.title = "Check In"
+        checkIn.handler = { item in
+            
         }
-        floaty.paddingX = self.view.frame.width/3 - floaty.frame.width
-        floaty.paddingY = self.view.frame.height/3 - floaty.frame.height
+        
+        let checkOut = FloatyItem()
+        checkOut.buttonColor = UIColor(red: 245/255, green: 166/255, blue: 35/255, alpha: 1)
+        checkOut.icon = UIImage(named: "checkOut")
+        checkOut.circleShadowColor = UIColor(red: 100/255, green: 100/255, blue: 100/255, alpha: 1)
+        checkOut.titleShadowColor = UIColor.blue
+        checkOut.title = "Check Out"
+        checkOut.handler = { item in
+            
+        }
+        
+        floaty.addItem(item: checkIn)
+        floaty.addItem(item: checkOut)
+        floaty.paddingX = self.view.frame.width/4.5 - floaty.frame.width
+        floaty.paddingY = self.view.frame.height/5 - floaty.frame.height
         floaty.fabDelegate = self
         self.view.addSubview(floaty)
         
-    }
-    
-    // MARK: - Floaty Delegate Methods
-    func floatyWillOpen(_ floaty: Floaty) {
-        print("Floaty Will Open")
-    }
-    
-    func floatyDidOpen(_ floaty: Floaty) {
-        print("Floaty Did Open")
-    }
-    
-    func floatyWillClose(_ floaty: Floaty) {
-        print("Floaty Will Close")
-    }
-    
-    func floatyDidClose(_ floaty: Floaty) {
-        print("Floaty Did Close")
     }
     
     override func viewWillAppear(_ animated: Bool) {
