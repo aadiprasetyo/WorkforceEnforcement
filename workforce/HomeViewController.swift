@@ -9,9 +9,9 @@
 import UIKit
 import ObjectMapper
 import DropDown
-import Material
+import Floaty
 
-class HomeViewController: UIViewController{
+class HomeViewController: UIViewController, FloatyDelegate{
 
     @IBOutlet weak var monthPicker: UIButton!
     @IBOutlet weak var yearPicker: UIButton!
@@ -30,13 +30,6 @@ class HomeViewController: UIViewController{
     let dropDownMonth = DropDown()
     
     
-    @IBAction func checkOutButton(_ sender: Any) {
-        
-    }
-    
-    @IBAction func checkInButton(_ sender: Any) {
-        
-    }
     @IBAction func chooseYear(_ sender: Any) {
         dropDownYear.show()
     }
@@ -51,6 +44,8 @@ class HomeViewController: UIViewController{
     var statusCheckOut = [UILabel]()
     var statusCheckIn = [UILabel]()
     var workHours = [UILabel]()
+    var floaty = Floaty()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,8 +107,56 @@ class HomeViewController: UIViewController{
             self.attendeList(year: (yearPicker.titleLabel?.text)!, month: String(monthNum!))
         }
         
+        layoutFAB()
+        
         // Do any additional setup after loading the view.
     }
+    
+    @IBAction func endEditing() {
+        view.endEditing(true)
+    }
+    
+    @IBAction func customImageSwitched(_ sender: UISwitch) {
+        if sender.isOn == true {
+            floaty.buttonImage = UIImage(named: "plus")
+        } else {
+            floaty.buttonImage = nil
+        }
+    }
+    
+    func layoutFAB() {
+        
+        //floaty.hasShadow = false
+        floaty.addItem("Check In", icon: UIImage(named: "CHECK IN"))
+        floaty.addItem("Check Out", icon: UIImage(named: "check out")) { item in
+            let alert = UIAlertController(title: "Hey", message: "I'm hungry...", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Me too", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+        floaty.paddingX = self.view.frame.width/3 - floaty.frame.width
+        floaty.paddingY = self.view.frame.height/3 - floaty.frame.height
+        floaty.fabDelegate = self
+        self.view.addSubview(floaty)
+        
+    }
+    
+    // MARK: - Floaty Delegate Methods
+    func floatyWillOpen(_ floaty: Floaty) {
+        print("Floaty Will Open")
+    }
+    
+    func floatyDidOpen(_ floaty: Floaty) {
+        print("Floaty Did Open")
+    }
+    
+    func floatyWillClose(_ floaty: Floaty) {
+        print("Floaty Will Close")
+    }
+    
+    func floatyDidClose(_ floaty: Floaty) {
+        print("Floaty Did Close")
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.parent?.title = "Home"
     }
