@@ -43,6 +43,9 @@ class APIManager{
         }
     }
     
+    func handleCheckOut(timeIn: String, timeOut: String){
+    
+    }
     
     func handleLogin(email: String, password: String){
         

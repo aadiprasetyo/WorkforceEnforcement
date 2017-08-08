@@ -36,16 +36,15 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet weak var reportArrow: UIImageView!
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        self.parent?.title = "Profile"
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        tabBarController?.navigationItem.title = "Profile"
+        self.parent?.title = "Profile"
         setProfile()
         // Do any additional setup after loading the view.
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        tabBarController?.navigationItem.title = "Profile"
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

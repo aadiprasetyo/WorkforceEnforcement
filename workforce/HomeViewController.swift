@@ -30,7 +30,13 @@ class HomeViewController: UIViewController{
     let dropDownMonth = DropDown()
     
     
+    @IBAction func checkOutButton(_ sender: Any) {
+        
+    }
     
+    @IBAction func checkInButton(_ sender: Any) {
+        
+    }
     @IBAction func chooseYear(_ sender: Any) {
         dropDownYear.show()
     }
@@ -65,7 +71,7 @@ class HomeViewController: UIViewController{
             if let date = df.date(from: monthName!) {
                 monthNumber  = calendar.dateComponents([.month], from: date)
                 monthNum = monthNumber?.month
-                self.attendeList(year: item, month: monthNum!)
+                self.attendeList(year: item, month: String(monthNum!))
             }
             
             
@@ -81,11 +87,12 @@ class HomeViewController: UIViewController{
             if let date = df.date(from: item) {
                 monthNumber  = calendar.dateComponents([.month], from: date)
                 monthNum = monthNumber?.month
-                self.attendeList(year: yearNum!, month: monthNum!)
+                self.attendeList(year: yearNum!, month: String(monthNum!))
             }
         }
         
-        tabBarController?.navigationItem.title = "Home"
+        self.parent?.title = "Home"
+        
         userData = Mapper<User>().map(JSONString: UserDefaults.standard.object(forKey: "userData") as! String)
         setupCollectionView()
         view.addSubview(collectionViews)
@@ -97,13 +104,12 @@ class HomeViewController: UIViewController{
         collectionViews.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/1.09).isActive = true
         collectionViews.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         collectionViews.topAnchor.constraint(equalTo: DateContainer.bottomAnchor, constant: 10).isActive = true
-        attendeList(year: "2016", month: 6)
+        attendeList(year: (yearPicker.titleLabel?.text)!, month: (monthPicker.titleLabel?.text)!)
         
-        fabMenuController?.prepare()
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
-        tabBarController?.navigationItem.title = "Home"
+        self.parent?.title = "Home"
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -124,9 +130,8 @@ class HomeViewController: UIViewController{
         
     }
     
-    func attendeList(year: String, month: Int){
-        let monthString = String(month)
-        APIManager.sharedAPI.attendanceReport(token: (userData?.token)!, year: year, month: monthString){
+    func attendeList(year: String, month: String){
+        APIManager.sharedAPI.attendanceReport(token: (userData?.token)!, year: year, month: month){
             Data in
             if let attendeDataList = Data.attendeDataList {
                 

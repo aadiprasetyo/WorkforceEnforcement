@@ -32,10 +32,9 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupInputsContainerView()
-        navigationItem.title = "Sign In"
-        
+        self.title = "Sign In"
         loginButton.layer.shadowOpacity = 0.3
-         self.tabBarController?.tabBar.isHidden = true
+        self.tabBarController?.tabBar.isHidden = true
         self.navigationItem.hidesBackButton = true
                 // Do any additional setup after loading the view.
     }

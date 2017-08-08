@@ -30,7 +30,7 @@ class forgotPassViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupInputsContainerView()
-        navigationItem.title = "Forgot Password"
+        self.title = "Forgot Password"
         // Do any additional setup after loading the view.
     }
     

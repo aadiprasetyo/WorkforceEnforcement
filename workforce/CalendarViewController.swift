@@ -35,7 +35,7 @@ class CalendarViewController: UIViewController{
         
         setupCalendarView()
         calendarView.scrollToDate(Date.init())
-        tabBarController?.navigationItem.title = "Calendar"
+        self.parent?.title = "Calendar"
         // Do any additional setup after loading the view.
     }
     func setupCalendarView(){
@@ -45,17 +45,13 @@ class CalendarViewController: UIViewController{
         
         calendarView.visibleDates{ (visibleDates) in
             self.setupViewsOfCalendar(from: visibleDates)
-            
-               }
+        }
     }
     
-    
-    
-    
-   override func viewWillAppear(_ animated: Bool) {
-        tabBarController?.navigationItem.title = "Calendar"
-    
+    override func viewWillAppear(_ animated: Bool) {
+        self.parent?.title = "Calendar"
     }
+    
     
     func handleCelltextColor(view: JTAppleCell?, cellState: CellState) {
         guard let validCell = view as? CalendarCell else {return}

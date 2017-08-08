@@ -24,7 +24,7 @@ class ProfileEditViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.tabBarController?.tabBar.isHidden = true
-        navigationItem.title = "View Profile"
+        self.title = "View Profile"
         profileTable.register(ProfileCell.self, forCellReuseIdentifier: "cell")
         setupView()
         profileTable.delegate = self
@@ -41,6 +41,7 @@ class ProfileEditViewController: UIViewController, UITableViewDelegate, UITableV
         return cell
     }
     override func viewWillAppear(_ animated: Bool) {
+        self.title = "View Profile"
         profileJob.text = userData?.role_name
         profileName.text = (userData?.first_name)! + (userData?.last_name)!
     }

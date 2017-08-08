@@ -10,7 +10,7 @@ import UIKit
 import Material
 
 class AppFABMenuController: FABMenuController {
-    fileprivate let fabMenuSize = CGSize(width: 560, height: 560)
+    fileprivate let fabMenuSize = CGSize(width: 56, height: 56)
     fileprivate let bottomInset: CGFloat = 24
     fileprivate let rightInset: CGFloat = 24
     
@@ -31,7 +31,8 @@ class AppFABMenuController: FABMenuController {
 
 extension AppFABMenuController {
     fileprivate func prepareFABButton() {
-        fabButton = FABButton(image: Icon.cm.add, tintColor: .white)
+        fabButton = FABButton(image: UIImage(named: "plus"), tintColor: .white)
+        print("halo")
         fabButton.pulseColor = .white
         fabButton.backgroundColor = Color.red.base
     }
