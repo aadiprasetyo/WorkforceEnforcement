@@ -4,28 +4,26 @@ PODS:
     - Alamofire (~> 4.1)
     - ObjectMapper (~> 2.0)
   - DropDown (2)
+  - Floaty (3.0.0)
   - JTAppleCalendar (7.0.5)
-  - Material (2.7.1):
-    - Material/Core (= 2.7.1)
-  - Material/Core (2.7.1)
   - ObjectMapper (2.2.8)
 
 DEPENDENCIES:
   - Alamofire (~> 4.4)
   - AlamofireObjectMapper (~> 4.0)
   - DropDown
+  - Floaty (~> 3.0.0)
   - JTAppleCalendar (~> 7.0)
-  - Material (~> 2.0)
   - ObjectMapper (~> 2.2)
 
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
   AlamofireObjectMapper: 435adc82f5b367679bd9e71c4974a54efd0b2521
   DropDown: 744784d9c9aa505100e942c16acd05430cbb2f0a
+  Floaty: d1be5d323094f0de422bb615452d00ba26ac74dd
   JTAppleCalendar: e01efccbf51cb6b3606f6cbcaa448befffed9582
-  Material: 13071c7cd340d54b4f9c839b386338a1e082b25e
   ObjectMapper: 3d571bb5af471c779e1160828cd9ad5c4ef90958
 
-PODFILE CHECKSUM: 652e781def7735e1b17b53e4922cf637959824e3
+PODFILE CHECKSUM: 35b1e5a7e94c4640b62b9fcae6bfea985d850c7f
 
 COCOAPODS: 1.2.1
