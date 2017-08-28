@@ -43,24 +43,106 @@ class APIManager{
         }
     }
     
-    func handleCheckOut(timeIn: String, timeOut: String){
+    func handleCheckOut(token: String, checkIn: String){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "tabBarLog")
+        
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let currentDate = dateFormatter.string(from: date)
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let timeOut = dateFormatter.string(from: date)
+        print(timeOut)
+        
         guard let parameters: Parameters = [
-            "Email": timeIn,
-            "Password": timeOut
+            "token": token,
+            "absent_number": "1024",
+            "date": currentDate,
+            "checkin": checkIn,
+            "checkout": timeOut,
+            "attendance_type": "manualentry"
             ]
             else{
                 return
+        }
+        Alamofire.request("http://staging.api.workforce.id/api/v1/attendance/update", method: .post, parameters: parameters).responseObject{ (response : DataResponse<User>) in
+            let statusCode = response.response?.statusCode
+            if statusCode == 200 {
+                self.createAlert(titleText: "Succes", messageText: "Check Out Succes")
+            }else{
+                self.createAlert(titleText: "Error", messageText: "Authentication failed. You should log in first")
+                UserDefaults.standard.removeObject(forKey: "userData")
+                self.getTopViewController()?.present(vc, animated: true, completion: nil)
+            }
         }
     }
     
-    func handleCheckIn(timeIn: String, timeOut: String){
+    func getTodayAttende(token: String, completeonClosure: @escaping (attendeList) -> Void){
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let currentDate = dateFormatter.string(from: date)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "tabBarFirst")
+        let parameters: Parameters = [
+            "token": token,
+            "Page": 1,
+            "PageLimit": 30,
+            "Search[0][field]": "date",
+            "Search[0][condition]": "=",
+            "Search[0][value1]": currentDate,
+            "Search[0][value2]": ""
+        ]
+        
+        Alamofire.request("http://staging.api.workforce.id/api/v1/attendance/manageoutgoingrequest", method: .post, parameters: parameters).responseObject{ (response : DataResponse<attendeList>) in
+            let user = response.result.value
+            let statusCode = response.response?.statusCode
+            if statusCode == 200 {
+                completeonClosure(user!)
+            }else{
+                self.createAlert(titleText: "Error", messageText: "You need to Log in First")
+                UserDefaults.standard.removeObject(forKey: "userData")
+                self.getTopViewController()?.present(vc, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    func handleCheckIn(token: String){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "tabBarLog")
+        
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let currentDate = dateFormatter.string(from: date)
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let timeIn = dateFormatter.string(from: date)
+        print(timeIn)
         guard let parameters: Parameters = [
-            "Email": timeIn,
-            "Password": timeOut
+            "token": token,
+            "absent_number": "1024",
+            "date": currentDate,
+            "checkin": timeIn,
+            "checkout": currentDate + " 00:00:00",
+            "attendance_type": "manualentry"
             ]
             else{
                 return
+            }
+        Alamofire.request("http://staging.api.workforce.id/api/v1/attendance/update", method: .post, parameters: parameters).responseObject{ (response : DataResponse<User>) in
+            let statusCode = response.response?.statusCode
+            if statusCode == 200 {
+                self.createAlert(titleText: "Succes", messageText: "Check In Succes")
+            }else{
+                self.createAlert(titleText: "Error", messageText: "Authentication failed. You should log in first")
+                UserDefaults.standard.removeObject(forKey: "userData")
+                self.getTopViewController()?.present(vc, animated: true, completion: nil)
+            }
         }
+        
     }
     
     func handleLogin(email: String, password: String){
@@ -92,6 +174,8 @@ class APIManager{
         }
     }
     
+    
+    
     func handleHolidayList(token: String, year: String, month: String, completeonClosure: @escaping (holidaysList) -> Void){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "tabBarFirst")
@@ -110,7 +194,7 @@ class APIManager{
                 }
                 
             }else{
-                self.createAlert(titleText: "Error", messageText: "You need to Log in First")
+                self.createAlert(titleText: "Error", messageText: "Authentication failed. You should log in first")
                 UserDefaults.standard.removeObject(forKey: "userData")
                 self.getTopViewController()?.present(vc, animated: true, completion: nil)
             }
@@ -142,7 +226,7 @@ class APIManager{
                 }
                 
             }else{
-                self.createAlert(titleText: "Error", messageText: "You need to Log in First")
+                self.createAlert(titleText: "Error", messageText: "Authentication failed. You should log in first")
                 UserDefaults.standard.removeObject(forKey: "userData")
                 self.getTopViewController()?.present(vc, animated: true, completion: nil)
             }

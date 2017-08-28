@@ -101,6 +101,7 @@ class attendeData: Mappable {
     }
 }
 
+
 class holidaysList: Mappable {
     var status: String?
     var TotalData: Int?

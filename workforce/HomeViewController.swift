@@ -28,6 +28,7 @@ class HomeViewController: UIViewController, FloatyDelegate{
     let months = ["January", "February", "March", "April","May", "June", "July", "August", "September", "October", "November", "December"]
     let dropDownYear = DropDown()
     let dropDownMonth = DropDown()
+    let Group = DispatchGroup()
     
     
     @IBAction func chooseYear(_ sender: Any) {
@@ -124,43 +125,109 @@ class HomeViewController: UIViewController, FloatyDelegate{
         }
     }
     
+    func getDateMinute(date: String?) -> Int{
+        let dateFormatter = DateFormatter()
+        let calendar = Calendar.current
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let dateMinute = dateFormatter.date(from: date!)
+        let minute = calendar.component(.minute, from: dateMinute!)
+        return minute
+    }
+    
+    func getDateHours(date: String?) -> Int{
+        let dateFormatter = DateFormatter()
+        let calendar = Calendar.current
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let dateHours = dateFormatter.date(from: date!)
+        let hours = calendar.component(.hour, from: dateHours!)
+        return hours
+    }
+    
     func layoutFAB() {
         floaty.buttonColor = UIColor(red: 4/255, green: 166/255, blue: 83/255, alpha: 1)
         floaty.plusColor = UIColor.white
-        let checkIn = FloatyItem()
-        checkIn.buttonColor = UIColor(red: 216/255, green: 216/255, blue: 216/255, alpha: 1)
-        checkIn.icon = UIImage(named: "checkIn")
-        checkIn.circleShadowColor = UIColor(red: 100/255, green: 100/255, blue: 100/255, alpha: 1)
-        checkIn.titleShadowColor = UIColor.black
-        checkIn.title = "Check In"
-        checkIn.titleColor = UIColor.black
-        checkIn.titleLabel.textAlignment = .center
-        checkIn.titleLabel.font = UIFont.systemFont(ofSize: 8)
-        checkIn.titleLabel.backgroundColor = UIColor.white
-        checkIn.titleLabel.layer.masksToBounds = true
-        checkIn.titleLabel.layer.cornerRadius = 4
-        checkIn.handler = { item in
-            print("check in")
+        let checkInFloaty = FloatyItem()
+        checkInFloaty.buttonColor = UIColor(red: 216/255, green: 216/255, blue: 216/255, alpha: 1)
+        checkInFloaty.icon = UIImage(named: "checkIn")
+        checkInFloaty.circleShadowColor = UIColor(red: 100/255, green: 100/255, blue: 100/255, alpha: 1)
+        checkInFloaty.titleShadowColor = UIColor.black
+        checkInFloaty.title = "Check In"
+        checkInFloaty.titleColor = UIColor.black
+        checkInFloaty.titleLabel.textAlignment = .center
+        checkInFloaty.titleLabel.font = UIFont.systemFont(ofSize: 8)
+        checkInFloaty.titleLabel.backgroundColor = UIColor.white
+        checkInFloaty.titleLabel.layer.masksToBounds = true
+        checkInFloaty.titleLabel.layer.cornerRadius = 4
+        checkInFloaty.handler = { item in
+            APIManager.sharedAPI.getTodayAttende(token: (userData?.token)!, completeonClosure: { (Data) in
+                
+                if Data.TotalData == 0{
+                    APIManager.sharedAPI.handleCheckIn(token: (userData?.token)!)
+                }else{
+                    print("check in failed, you already checked in today")
+                }
+                
+//                if let attendeDataList = Data.attendeDataList {
+//                    for attendeData in attendeDataList {
+//                        
+//                        let checkOutHours = self.getDateHours(date: attendeData.checkout!)
+//                        let checkOutMinute = self.getDateMinute(date: attendeData.checkout!)
+//                        
+//                        if checkOutHours == 0 && checkOutMinute == 0{
+//                            
+//                        }
+//                    }
+//                }
+            })
+            self.attendeList(year: "2017", month: "08")
+            self.monthPicker.setTitle("August", for: .normal)
+            self.yearPicker.setTitle("2017", for: .normal)
+            
         }
         
-        let checkOut = FloatyItem()
-        checkOut.buttonColor = UIColor(red: 245/255, green: 166/255, blue: 35/255, alpha: 1)
-        checkOut.icon = UIImage(named: "checkOut")
-        checkOut.circleShadowColor = UIColor(red: 100/255, green: 100/255, blue: 100/255, alpha: 1)
-        checkOut.titleShadowColor = UIColor.black
-        checkOut.title = "Check Out"
-        checkOut.titleColor = UIColor.black
-        checkOut.titleLabel.textAlignment = .center
-        checkOut.titleLabel.font = UIFont.systemFont(ofSize: 8)
-        checkOut.titleLabel.backgroundColor = UIColor.white
-        checkOut.titleLabel.layer.masksToBounds = true
-        checkOut.titleLabel.layer.cornerRadius = 4
-        checkOut.handler = { item in
-            print("check out")
+        let checkOutFloaty = FloatyItem()
+        checkOutFloaty.buttonColor = UIColor(red: 245/255, green: 166/255, blue: 35/255, alpha: 1)
+        checkOutFloaty.icon = UIImage(named: "checkOut")
+        checkOutFloaty.circleShadowColor = UIColor(red: 100/255, green: 100/255, blue: 100/255, alpha: 1)
+        checkOutFloaty.titleShadowColor = UIColor.black
+        checkOutFloaty.title = "Check Out"
+        checkOutFloaty.titleColor = UIColor.black
+        checkOutFloaty.titleLabel.textAlignment = .center
+        checkOutFloaty.titleLabel.font = UIFont.systemFont(ofSize: 8)
+        checkOutFloaty.titleLabel.backgroundColor = UIColor.white
+        checkOutFloaty.titleLabel.layer.masksToBounds = true
+        checkOutFloaty.titleLabel.layer.cornerRadius = 4
+        checkOutFloaty.handler = { item in
+            APIManager.sharedAPI.getTodayAttende(token: (userData?.token)!, completeonClosure: { (Data) in
+                
+                if Data.TotalData == 0{
+                    print("check out failed, you need to check in first")
+                }else{
+                    if let attendeDataList = Data.attendeDataList {
+                        for attendeData in attendeDataList {
+                            
+                            let checkOutHours = self.getDateHours(date: attendeData.checkout!)
+                            let checkOutMinute = self.getDateMinute(date: attendeData.checkout!)
+                            if checkOutHours == 0 && checkOutMinute == 0{
+                                APIManager.sharedAPI.handleCheckOut(token: (userData?.token)!, checkIn: attendeData.checkin!)
+                            }else{
+                                print("error you cant checkout")
+                            }
+                        }
+                    }
+                }
+
+                
+            })
+            self.attendeList(year: "2017", month: "08")
+            self.monthPicker.setTitle("August", for: .normal)
+            self.yearPicker.setTitle("2017", for: .normal)
         }
         floaty.openAnimationType = .slideLeft
-        floaty.addItem(item: checkIn)
-        floaty.addItem(item: checkOut)
+        floaty.addItem(item: checkInFloaty)
+        floaty.addItem(item: checkOutFloaty)
         floaty.paddingX = self.view.frame.width/4.5 - floaty.frame.width
         floaty.paddingY = self.view.frame.height/5 - floaty.frame.height
         floaty.fabDelegate = self
@@ -180,8 +247,8 @@ class HomeViewController: UIViewController, FloatyDelegate{
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         collectionViews = UICollectionView(frame: view.frame, collectionViewLayout: layout)
-        collectionViews.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 100, right: 0)
-        collectionViews.scrollIndicatorInsets = UIEdgeInsets(top: 8, left: 0, bottom: 100, right: -10)
+        collectionViews.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: (tabBarController?.tabBar.frame.height)! + 100, right: 0)
+        collectionViews.scrollIndicatorInsets = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: -10)
         collectionViews.register(attendanceCollectionViewCell.self, forCellWithReuseIdentifier: "imageCell")
         collectionViews.delegate = self
         collectionViews.dataSource = self
@@ -191,8 +258,10 @@ class HomeViewController: UIViewController, FloatyDelegate{
     }
     
     func attendeList(year: String, month: String){
+        
         APIManager.sharedAPI.attendanceReport(token: (userData?.token)!, year: year, month: month){
             Data in
+            
             if let attendeDataList = Data.attendeDataList {
                 
                 self.checkOut = [UILabel]()
@@ -226,7 +295,9 @@ class HomeViewController: UIViewController, FloatyDelegate{
                     self.workHours.append(workhousLabel)
                     self.images.append(UIImage(named: "groupCopy")!)
                     self.collectionViews.reloadData()
+                    
                 }
+                
             }
         }
     }
@@ -313,16 +384,22 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
     //Method to populate the data of a given cell
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let dateFormatter = DateFormatter()
+        let calendar = Calendar.current
+        
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
         
         let dateCheckIn = dateFormatter.date(from: checkIn[indexPath.row].text!)
         let dateCheckOut = dateFormatter.date(from: checkOut[indexPath.row].text!)
+        let checkOutHours = calendar.component(.hour, from: dateCheckOut!)
+        let checkOutMinute = calendar.component(.minute, from: dateCheckOut!)
+        let numberWorks = Double(workHours[indexPath.row].text!)
+        
         
         dateFormatter.dateFormat = "E, dd MMM yyyy - HH:mm"
         
         let checkInTime = dateFormatter.string(from: dateCheckIn!)
-        let checkOutTime = dateFormatter.string(from: dateCheckOut!)
+        var checkOutTime = dateFormatter.string(from: dateCheckOut!)
         
         let imageCell = cell as! attendanceCollectionViewCell
         imageCell.ImageView.image = images[indexPath.row]
@@ -330,7 +407,9 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
         imageCell.checkInTime.text = checkInTime
         imageCell.statusCheckOut.text = statusCheckOut[indexPath.row].text?.uppercased()
         imageCell.statusCheckIn.text = statusCheckIn[indexPath.row].text?.uppercased()
-        let numberWorks = Double(workHours[indexPath.row].text!)
+        imageCell.workHours.text = "WORK HOURS " + String(format: "%.1f", numberWorks!)
+        
+        
         
         if statusCheckIn[indexPath.row].text == "no" {
             imageCell.statusCheckIn.text = "ON TIME"
@@ -344,16 +423,24 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
             imageCell.workHours.textColor = UIColor(red: 42/255, green: 147/255, blue: 137/255, alpha: 1)
             imageCell.statusCheckOut.backgroundColor = UIColor(red: 4/255, green: 166/255, blue: 83/255, alpha: 1)
             
+        }else if checkOutHours == 0 && checkOutMinute == 0{
+            dateFormatter.dateFormat = "E, dd MMM yyyy - "
+            checkOutTime = dateFormatter.string(from: dateCheckOut!)
+            imageCell.checkOutTime.text = checkOutTime + "—:—"
+            imageCell.statusCheckOut.text = "HOMEWARD"
+            imageCell.statusCheckOut.backgroundColor = UIColor(red: 245/255, green: 166/255, blue: 35/255, alpha: 1)
+            imageCell.workHours.text = "ONGOING"
+            imageCell.workHours.textColor = UIColor(red: 245/255, green: 166/255, blue: 35/255, alpha: 1)
         }else{
             imageCell.workHours.textColor = UIColor(red: 255/255, green: 23/255, blue: 68/255, alpha: 1)
             imageCell.statusCheckOut.backgroundColor = UIColor(red: 255/255, green: 23/255, blue: 68/255, alpha: 1)
         }
         
-        imageCell.workHours.text = "WORK HOURS " + String(format: "%.1f", numberWorks!)
+        
     }
     //Set the size of cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionViews.frame.width, height: 150)
+        return CGSize(width: collectionViews.frame.width, height: 125)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath.row)

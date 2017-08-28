@@ -16,6 +16,7 @@
 		843924AD1F285C8D002A6E5A /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843924AC1F285C8D002A6E5A /* CalendarViewController.swift */; };
 		84B2BD411F2AD7EB00053255 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B2BD401F2AD7EB00053255 /* API.swift */; };
 		84B2BD431F2AE74500053255 /* attendanceCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B2BD421F2AE74500053255 /* attendanceCollectionView.swift */; };
+		84CB18801F4EBFB1005B4C8F /* AttendanceReportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CB187F1F4EBFB1005B4C8F /* AttendanceReportController.swift */; };
 		84CFC7961F286FB6008B7F6E /* ProfileTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFC7951F286FB6008B7F6E /* ProfileTableCell.swift */; };
 		84E74AA01F25F0560087FA46 /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E74A9F1F25F0560087FA46 /* ProfileEditViewController.swift */; };
 		84F67A841F1F5F9F001CC414 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F67A831F1F5F9F001CC414 /* AppDelegate.swift */; };
@@ -42,6 +43,7 @@
 		843924AC1F285C8D002A6E5A /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		84B2BD401F2AD7EB00053255 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		84B2BD421F2AE74500053255 /* attendanceCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = attendanceCollectionView.swift; sourceTree = "<group>"; };
+		84CB187F1F4EBFB1005B4C8F /* AttendanceReportController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttendanceReportController.swift; sourceTree = "<group>"; };
 		84CFC7951F286FB6008B7F6E /* ProfileTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableCell.swift; sourceTree = "<group>"; };
 		84E74A9F1F25F0560087FA46 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
 		84F67A801F1F5F9F001CC414 /* workforce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = workforce.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -139,6 +141,7 @@
 				84E74A9F1F25F0560087FA46 /* ProfileEditViewController.swift */,
 				841C6AEF1F27341300287DE7 /* NavigationViewController.swift */,
 				843924A71F2854AE002A6E5A /* TabBarViewController.swift */,
+				84CB187F1F4EBFB1005B4C8F /* AttendanceReportController.swift */,
 				843924AC1F285C8D002A6E5A /* CalendarViewController.swift */,
 				84FAC1201F2EF05800BD3D04 /* CalendarCell.swift */,
 			);
@@ -303,6 +306,7 @@
 				84B2BD431F2AE74500053255 /* attendanceCollectionView.swift in Sources */,
 				84F67AA01F208AEB001CC414 /* HomeViewController.swift in Sources */,
 				841C6AEB1F26F74900287DE7 /* profileView.swift in Sources */,
+				84CB18801F4EBFB1005B4C8F /* AttendanceReportController.swift in Sources */,
 				8418747B1F21F25400C7920F /* ProfileViewController.swift in Sources */,
 				84B2BD411F2AD7EB00053255 /* API.swift in Sources */,
 				84F67A841F1F5F9F001CC414 /* AppDelegate.swift in Sources */,

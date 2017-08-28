@@ -52,7 +52,7 @@ class attendanceCollectionViewCell: UICollectionViewCell {
         
         
         ImageView = UIImageView(frame: contentView.frame)
-        ImageView.contentMode = .scaleAspectFit
+        ImageView.contentMode = .scaleToFill
         contentView.addSubview(ImageView)
         contentView.addSubview(statusCheckIn)
         contentView.addSubview(statusCheckOut)
@@ -64,7 +64,7 @@ class attendanceCollectionViewCell: UICollectionViewCell {
         statusCheckIn.textAlignment = .center
         statusCheckIn.textColor = UIColor.white
         statusCheckIn.backgroundColor = UIColor(red: 4/255, green: 166/255, blue: 83/255, alpha: 1)
-        statusCheckIn.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 56.5).isActive = true
+        statusCheckIn.topAnchor.constraint(equalTo: checkInTime.bottomAnchor, constant: 6.5).isActive = true
         statusCheckIn.widthAnchor.constraint(equalToConstant: 97.5).isActive = true
         statusCheckIn.heightAnchor.constraint(equalToConstant: 22.5).isActive = true
         statusCheckIn.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8.3).isActive = true
@@ -73,7 +73,7 @@ class attendanceCollectionViewCell: UICollectionViewCell {
 
         checkInTime.textColor = UIColor.gray
         checkInTime.font = UIFont.systemFont(ofSize: 10)
-        checkInTime.bottomAnchor.constraint(equalTo: statusCheckIn.topAnchor, constant: -6.5).isActive = true
+        checkInTime.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 28).isActive = true
         checkInTime.widthAnchor.constraint(equalToConstant: 137.5).isActive = true
         checkInTime.heightAnchor.constraint(equalToConstant: 12).isActive = true
         checkInTime.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8.3).isActive = true
@@ -82,7 +82,7 @@ class attendanceCollectionViewCell: UICollectionViewCell {
         statusCheckOut.textColor = UIColor.white
         statusCheckOut.font = UIFont.systemFont(ofSize: 12)
         statusCheckOut.backgroundColor = UIColor(red: 255/255, green: 23/255, blue: 68/255, alpha: 1)
-        statusCheckOut.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 56.5).isActive = true
+        statusCheckOut.topAnchor.constraint(equalTo: checkOutTime.bottomAnchor, constant: 6.5).isActive = true
         statusCheckOut.widthAnchor.constraint(equalToConstant: 97.5).isActive = true
         statusCheckOut.heightAnchor.constraint(equalToConstant: 22.5).isActive = true
         statusCheckOut.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -7.8).isActive = true
@@ -91,7 +91,7 @@ class attendanceCollectionViewCell: UICollectionViewCell {
         
         checkOutTime.textColor = UIColor.gray
         checkOutTime.font = UIFont.systemFont(ofSize: 10)
-        checkOutTime.bottomAnchor.constraint(equalTo: statusCheckIn.topAnchor, constant: -6.5).isActive = true
+        checkOutTime.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 28).isActive = true
         checkOutTime.widthAnchor.constraint(equalToConstant: 137.5).isActive = true
         checkOutTime.heightAnchor.constraint(equalToConstant: 12).isActive = true
         checkOutTime.leftAnchor.constraint(equalTo: statusCheckOut.leftAnchor, constant: -24).isActive = true
@@ -99,7 +99,7 @@ class attendanceCollectionViewCell: UICollectionViewCell {
         workHours.textColor = UIColor(red: 42/255, green: 147/255, blue: 137/255, alpha: 1)
         workHours.textAlignment = .center
         workHours.font = UIFont.systemFont(ofSize: 12)
-        workHours.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -19).isActive = true
+        workHours.topAnchor.constraint(equalTo: statusCheckOut.bottomAnchor, constant: 32.5).isActive = true
         workHours.widthAnchor.constraint(equalToConstant: 197.5).isActive = true
         workHours.heightAnchor.constraint(equalToConstant: 12).isActive = true
         workHours.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
