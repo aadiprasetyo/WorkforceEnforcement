@@ -23,6 +23,7 @@ class User: Mappable {
     var prof_picture: String?
     var division_name: String?
     var role_name: String?
+    var absent_number: String?
     
     required init?(map: Map) {
         
@@ -41,6 +42,8 @@ class User: Mappable {
         last_name       <- map["UserData.Data.last_name"]
         email           <- map["UserData.Data.email"]
         role_name       <- map["UserData.Data.role_name"]
+        absent_number   <- map["UserData.Data.absent_number"]
+
     }
     
 }

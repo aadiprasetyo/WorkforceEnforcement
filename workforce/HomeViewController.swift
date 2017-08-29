@@ -10,6 +10,7 @@ import UIKit
 import ObjectMapper
 import DropDown
 import Floaty
+import CoreLocation
 
 class HomeViewController: UIViewController, FloatyDelegate{
 
@@ -23,6 +24,7 @@ class HomeViewController: UIViewController, FloatyDelegate{
     @IBOutlet weak var ServertimeLabel: UILabel!
     @IBOutlet weak var imageBackground: UIImageView!
     var collectionViews: UICollectionView!
+    
     
     let years = ["2015", "2016", "2017"]
     let months = ["January", "February", "March", "April","May", "June", "July", "August", "September", "October", "November", "December"]
@@ -46,7 +48,9 @@ class HomeViewController: UIViewController, FloatyDelegate{
     var statusCheckIn = [UILabel]()
     var workHours = [UILabel]()
     var floaty = Floaty()
-    
+    let locationManager = CLLocationManager()
+    var locationLatitude: Double?
+    var locationLongtitude: Double?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +59,7 @@ class HomeViewController: UIViewController, FloatyDelegate{
         let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         var monthNumber: DateComponents?
         var monthNum: Int?
-        
+        setLocation()
         dropDownYear.bottomOffset = CGPoint(x: 0, y: yearPicker.bounds.height)
         dropDownYear.anchorView = yearPicker
         dropDownYear.dataSource = years
@@ -67,7 +71,7 @@ class HomeViewController: UIViewController, FloatyDelegate{
             if let date = df.date(from: monthName!) {
                 monthNumber  = calendar.dateComponents([.month], from: date)
                 monthNum = monthNumber?.month
-                self.attendeList(year: item, month: String(monthNum!))
+                self.attendeList(year: item, month: String(monthNum!), callback: {})
             }
             
             
@@ -83,7 +87,7 @@ class HomeViewController: UIViewController, FloatyDelegate{
             if let date = df.date(from: item) {
                 monthNumber  = calendar.dateComponents([.month], from: date)
                 monthNum = monthNumber?.month
-                self.attendeList(year: yearNum!, month: String(monthNum!))
+                self.attendeList(year: yearNum!, month: String(monthNum!), callback: {})
             }
         }
         
@@ -105,7 +109,7 @@ class HomeViewController: UIViewController, FloatyDelegate{
         if let date = df.date(from: (monthPicker.titleLabel?.text)!) {
             monthNumber  = calendar.dateComponents([.month], from: date)
             monthNum = monthNumber?.month
-            self.attendeList(year: (yearPicker.titleLabel?.text)!, month: String(monthNum!))
+            self.attendeList(year: (yearPicker.titleLabel?.text)!, month: String(monthNum!), callback: {})
         }
         
         layoutFAB()
@@ -123,6 +127,32 @@ class HomeViewController: UIViewController, FloatyDelegate{
         } else {
             floaty.buttonImage = nil
         }
+    }
+    
+    func setLocation(){
+        // Ask for Authorisation from the User.
+        self.locationManager.requestAlwaysAuthorization()
+        
+        // For use in foreground
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self as? CLLocationManagerDelegate
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+        
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+        locationLatitude = locValue.latitude
+        locationLongtitude = locValue.longitude
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error.localizedDescription)
     }
     
     func getDateMinute(date: String?) -> Int{
@@ -164,27 +194,17 @@ class HomeViewController: UIViewController, FloatyDelegate{
             APIManager.sharedAPI.getTodayAttende(token: (userData?.token)!, completeonClosure: { (Data) in
                 
                 if Data.TotalData == 0{
-                    APIManager.sharedAPI.handleCheckIn(token: (userData?.token)!)
+                    APIManager.sharedAPI.handleCheckIn(token: (userData?.token)!, absent_num: (userData?.absent_number)!, callback: {
+                        APIManager.sharedAPI.createAlert(titleText: "Succes", messageText: "Check In Succes")
+                        self.attendeList(year: "2017", month: "08", callback: {
+                            self.monthPicker.setTitle("August", for: .normal)
+                            self.yearPicker.setTitle("2017", for: .normal)
+                        })
+                    })
                 }else{
-                    print("check in failed, you already checked in today")
+                    APIManager.sharedAPI.createAlert(titleText: "Check In Failed", messageText: "You already Check In Today")
                 }
-                
-//                if let attendeDataList = Data.attendeDataList {
-//                    for attendeData in attendeDataList {
-//                        
-//                        let checkOutHours = self.getDateHours(date: attendeData.checkout!)
-//                        let checkOutMinute = self.getDateMinute(date: attendeData.checkout!)
-//                        
-//                        if checkOutHours == 0 && checkOutMinute == 0{
-//                            
-//                        }
-//                    }
-//                }
             })
-            self.attendeList(year: "2017", month: "08")
-            self.monthPicker.setTitle("August", for: .normal)
-            self.yearPicker.setTitle("2017", for: .normal)
-            
         }
         
         let checkOutFloaty = FloatyItem()
@@ -201,9 +221,10 @@ class HomeViewController: UIViewController, FloatyDelegate{
         checkOutFloaty.titleLabel.layer.cornerRadius = 4
         checkOutFloaty.handler = { item in
             APIManager.sharedAPI.getTodayAttende(token: (userData?.token)!, completeonClosure: { (Data) in
-                
+                print("Longtitude : " + String(describing: self.locationLongtitude))
+                print("Latitude : " + String(describing: self.locationLatitude))
                 if Data.TotalData == 0{
-                    print("check out failed, you need to check in first")
+                    APIManager.sharedAPI.createAlert(titleText: "Check Out Failed", messageText: "You need to Check In first")
                 }else{
                     if let attendeDataList = Data.attendeDataList {
                         for attendeData in attendeDataList {
@@ -211,9 +232,16 @@ class HomeViewController: UIViewController, FloatyDelegate{
                             let checkOutHours = self.getDateHours(date: attendeData.checkout!)
                             let checkOutMinute = self.getDateMinute(date: attendeData.checkout!)
                             if checkOutHours == 0 && checkOutMinute == 0{
-                                APIManager.sharedAPI.handleCheckOut(token: (userData?.token)!, checkIn: attendeData.checkin!)
+                                APIManager.sharedAPI.handleCheckOut(token: (userData?.token)!, absent_num: (userData?.absent_number)!, checkIn: attendeData.checkin!, callback: {
+                                    APIManager.sharedAPI.createAlert(titleText: "Succes", messageText: "Check Out Succes")
+                                    self.attendeList(year: "2017", month: "08", callback: {
+                                        self.monthPicker.setTitle("August", for: .normal)
+                                        self.yearPicker.setTitle("2017", for: .normal)
+                                    })
+
+                                })
                             }else{
-                                print("error you cant checkout")
+                                APIManager.sharedAPI.createAlert(titleText: "Check Out Failed", messageText: "You already Check Out Today")
                             }
                         }
                     }
@@ -221,10 +249,7 @@ class HomeViewController: UIViewController, FloatyDelegate{
 
                 
             })
-            self.attendeList(year: "2017", month: "08")
-            self.monthPicker.setTitle("August", for: .normal)
-            self.yearPicker.setTitle("2017", for: .normal)
-        }
+                    }
         floaty.openAnimationType = .slideLeft
         floaty.addItem(item: checkInFloaty)
         floaty.addItem(item: checkOutFloaty)
@@ -257,7 +282,7 @@ class HomeViewController: UIViewController, FloatyDelegate{
         
     }
     
-    func attendeList(year: String, month: String){
+    func attendeList(year: String, month: String, callback: @escaping () -> Void){
         
         APIManager.sharedAPI.attendanceReport(token: (userData?.token)!, year: year, month: month){
             Data in
@@ -295,9 +320,8 @@ class HomeViewController: UIViewController, FloatyDelegate{
                     self.workHours.append(workhousLabel)
                     self.images.append(UIImage(named: "groupCopy")!)
                     self.collectionViews.reloadData()
-                    
                 }
-                
+                callback()
             }
         }
     }

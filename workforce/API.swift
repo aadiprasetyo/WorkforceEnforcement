@@ -43,7 +43,7 @@ class APIManager{
         }
     }
     
-    func handleCheckOut(token: String, checkIn: String){
+    func handleCheckOut(token: String, absent_num: String, checkIn: String, callback: @escaping ()->Void){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "tabBarLog")
         
@@ -58,7 +58,7 @@ class APIManager{
         
         guard let parameters: Parameters = [
             "token": token,
-            "absent_number": "1024",
+            "absent_number": absent_num,
             "date": currentDate,
             "checkin": checkIn,
             "checkout": timeOut,
@@ -70,7 +70,7 @@ class APIManager{
         Alamofire.request("http://staging.api.workforce.id/api/v1/attendance/update", method: .post, parameters: parameters).responseObject{ (response : DataResponse<User>) in
             let statusCode = response.response?.statusCode
             if statusCode == 200 {
-                self.createAlert(titleText: "Succes", messageText: "Check Out Succes")
+                callback()
             }else{
                 self.createAlert(titleText: "Error", messageText: "Authentication failed. You should log in first")
                 UserDefaults.standard.removeObject(forKey: "userData")
@@ -109,7 +109,7 @@ class APIManager{
         }
     }
     
-    func handleCheckIn(token: String){
+    func handleCheckIn(token: String, absent_num: String, callback: @escaping () -> Void){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "tabBarLog")
         
@@ -123,7 +123,7 @@ class APIManager{
         print(timeIn)
         guard let parameters: Parameters = [
             "token": token,
-            "absent_number": "1024",
+            "absent_number": absent_num,
             "date": currentDate,
             "checkin": timeIn,
             "checkout": currentDate + " 00:00:00",
@@ -135,7 +135,7 @@ class APIManager{
         Alamofire.request("http://staging.api.workforce.id/api/v1/attendance/update", method: .post, parameters: parameters).responseObject{ (response : DataResponse<User>) in
             let statusCode = response.response?.statusCode
             if statusCode == 200 {
-                self.createAlert(titleText: "Succes", messageText: "Check In Succes")
+                callback()
             }else{
                 self.createAlert(titleText: "Error", messageText: "Authentication failed. You should log in first")
                 UserDefaults.standard.removeObject(forKey: "userData")
