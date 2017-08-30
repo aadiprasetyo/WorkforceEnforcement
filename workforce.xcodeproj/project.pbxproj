@@ -203,7 +203,7 @@
 				TargetAttributes = {
 					84F67A7F1F1F5F9F001CC414 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = DURRR6YUSP;
+						DevelopmentTeam = 648MW45XDF;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -433,7 +433,7 @@
 			baseConfigurationReference = 72E75F709B83A4353EAB184B /* Pods-workforce.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = DURRR6YUSP;
+				DEVELOPMENT_TEAM = 648MW45XDF;
 				INFOPLIST_FILE = workforce/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = indosystem.workforce;
@@ -447,7 +447,7 @@
 			baseConfigurationReference = 36926ADCEAA03B11AB521B44 /* Pods-workforce.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = DURRR6YUSP;
+				DEVELOPMENT_TEAM = 648MW45XDF;
 				INFOPLIST_FILE = workforce/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = indosystem.workforce;

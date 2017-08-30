@@ -12,7 +12,7 @@ import DropDown
 import Floaty
 import CoreLocation
 
-class HomeViewController: UIViewController, FloatyDelegate{
+class HomeViewController: UIViewController, FloatyDelegate, CLLocationManagerDelegate{
 
     @IBOutlet weak var monthPicker: UIButton!
     @IBOutlet weak var yearPicker: UIButton!
@@ -51,6 +51,11 @@ class HomeViewController: UIViewController, FloatyDelegate{
     let locationManager = CLLocationManager()
     var locationLatitude: Double?
     var locationLongtitude: Double?
+    var distanceCirebon: Double?
+    var distanceJakarta: Double?
+    var locationJakarta = CLLocation(latitude: -6.2247, longitude: 106.8415)
+    var locationCirebon = CLLocation(latitude: -6.7184, longitude: 108.5509) //6.7184 108.5509
+    var userLocation: CLLocation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -137,18 +142,24 @@ class HomeViewController: UIViewController, FloatyDelegate{
         self.locationManager.requestWhenInUseAuthorization()
         
         if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self as? CLLocationManagerDelegate
+            locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
         }
+        
         
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
-        locationLatitude = locValue.latitude
-        locationLongtitude = locValue.longitude
+        userLocation = CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
+        distanceCirebon = userLocation?.distance(from: locationCirebon)
+        distanceJakarta = userLocation?.distance(from: locationJakarta)
+    }
+    
+    func checkDistanceIsTooFar(distance: Double) -> Bool{
+        return distance >= 150.0 ? false : true
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -192,17 +203,21 @@ class HomeViewController: UIViewController, FloatyDelegate{
         checkInFloaty.titleLabel.layer.cornerRadius = 4
         checkInFloaty.handler = { item in
             APIManager.sharedAPI.getTodayAttende(token: (userData?.token)!, completeonClosure: { (Data) in
-                
-                if Data.TotalData == 0{
-                    APIManager.sharedAPI.handleCheckIn(token: (userData?.token)!, absent_num: (userData?.absent_number)!, callback: {
-                        APIManager.sharedAPI.createAlert(titleText: "Succes", messageText: "Check In Succes")
-                        self.attendeList(year: "2017", month: "08", callback: {
-                            self.monthPicker.setTitle("August", for: .normal)
-                            self.yearPicker.setTitle("2017", for: .normal)
+                if self.checkDistanceIsTooFar(distance: self.distanceCirebon!) || self.checkDistanceIsTooFar(distance: self.distanceJakarta!){
+                    if Data.TotalData == 0{
+                        APIManager.sharedAPI.handleCheckIn(token: (userData?.token)!, absent_num: (userData?.absent_number)!, callback: {
+                            APIManager.sharedAPI.createAlert(titleText: "Succes", messageText: "Check In Succes")
+                            self.attendeList(year: "2017", month: "08", callback: {
+                                self.monthPicker.setTitle("August", for: .normal)
+                                self.yearPicker.setTitle("2017", for: .normal)
+                            })
                         })
-                    })
-                }else{
-                    APIManager.sharedAPI.createAlert(titleText: "Check In Failed", messageText: "You already Check In Today")
+                    }else{
+                        APIManager.sharedAPI.createAlert(titleText: "Check In Failed", messageText: "You already Check In Today")
+                    }
+                }
+                else{
+                    APIManager.sharedAPI.createAlert(titleText: "Check In Failed", messageText: "You are too far away from Office")
                 }
             })
         }
@@ -221,35 +236,35 @@ class HomeViewController: UIViewController, FloatyDelegate{
         checkOutFloaty.titleLabel.layer.cornerRadius = 4
         checkOutFloaty.handler = { item in
             APIManager.sharedAPI.getTodayAttende(token: (userData?.token)!, completeonClosure: { (Data) in
-                print("Longtitude : " + String(describing: self.locationLongtitude))
-                print("Latitude : " + String(describing: self.locationLatitude))
-                if Data.TotalData == 0{
-                    APIManager.sharedAPI.createAlert(titleText: "Check Out Failed", messageText: "You need to Check In first")
-                }else{
-                    if let attendeDataList = Data.attendeDataList {
-                        for attendeData in attendeDataList {
-                            
-                            let checkOutHours = self.getDateHours(date: attendeData.checkout!)
-                            let checkOutMinute = self.getDateMinute(date: attendeData.checkout!)
-                            if checkOutHours == 0 && checkOutMinute == 0{
-                                APIManager.sharedAPI.handleCheckOut(token: (userData?.token)!, absent_num: (userData?.absent_number)!, checkIn: attendeData.checkin!, callback: {
-                                    APIManager.sharedAPI.createAlert(titleText: "Succes", messageText: "Check Out Succes")
-                                    self.attendeList(year: "2017", month: "08", callback: {
-                                        self.monthPicker.setTitle("August", for: .normal)
-                                        self.yearPicker.setTitle("2017", for: .normal)
+                if self.checkDistanceIsTooFar(distance: self.distanceCirebon!) || self.checkDistanceIsTooFar(distance: self.distanceJakarta!){
+                    if Data.TotalData == 0{
+                        APIManager.sharedAPI.createAlert(titleText: "Check Out Failed", messageText: "You need to Check In first")
+                    }else{
+                        if let attendeDataList = Data.attendeDataList {
+                            for attendeData in attendeDataList {
+                                
+                                let checkOutHours = self.getDateHours(date: attendeData.checkout!)
+                                let checkOutMinute = self.getDateMinute(date: attendeData.checkout!)
+                                if checkOutHours == 0 && checkOutMinute == 0{
+                                    APIManager.sharedAPI.handleCheckOut(token: (userData?.token)!, absent_num: (userData?.absent_number)!, checkIn: attendeData.checkin!, callback: {
+                                        APIManager.sharedAPI.createAlert(titleText: "Succes", messageText: "Check Out Succes")
+                                        self.attendeList(year: "2017", month: "08", callback: {
+                                            self.monthPicker.setTitle("August", for: .normal)
+                                            self.yearPicker.setTitle("2017", for: .normal)
+                                        })
+                                        
                                     })
-
-                                })
-                            }else{
-                                APIManager.sharedAPI.createAlert(titleText: "Check Out Failed", messageText: "You already Check Out Today")
+                                }else{
+                                    APIManager.sharedAPI.createAlert(titleText: "Check Out Failed", messageText: "You already Check Out Today")
+                                }
                             }
                         }
                     }
+                }else{
+                    APIManager.sharedAPI.createAlert(titleText: "Check Out Failed", messageText: "You are too far away from Office")
                 }
-
-                
             })
-                    }
+        }
         floaty.openAnimationType = .slideLeft
         floaty.addItem(item: checkInFloaty)
         floaty.addItem(item: checkOutFloaty)
