@@ -79,7 +79,6 @@ class HomeViewController: UIViewController, FloatyDelegate, CLLocationManagerDel
                 self.attendeList(year: item, month: String(monthNum!), callback: {})
             }
             
-            
         }
         dropDownMonth.bottomOffset = CGPoint(x: 0, y: monthPicker.bounds.height)
         dropDownMonth.anchorView = monthPicker
